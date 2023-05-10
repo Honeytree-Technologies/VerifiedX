@@ -1,0 +1,29 @@
+<% cancel_path ||= topic.persisted? ? [:account, topic] : [:account, @team, :topics] %>
+
+<%= form_with model: topic, url: (topic.persisted? ? [:account, topic] : [:account, @team, :topics]), local: true, class: 'form' do |form| %>
+  <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
+    <%= render 'account/shared/forms/errors', form: form %>
+
+    <% with_field_settings form: form do %>
+      <%= render 'shared/fields/text_field', method: :name %>
+      <%= render 'shared/fields/text_field', method: :definition %>
+      <input type="text" name="topic[parent_id]" id="topic_parent_id" class="bg-gray-50 border
+                 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block placeholder-gray-400
+                  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 text-gray-900 text-sm dark:placeholder-gray-400 dark:text-white"
+             placeholder="Parent Topic" data-controller="tom-select" data-tom-select-url-value="<%= account_team_topics_path(@team, format: :json) %>"
+             data-tom-select-placeholder-value="Parent Topic"
+             <% if topic.parent_id %>
+             data-tom-select-items-value="<%= { id: topic.parent_id, name: topic.parent.name }.to_json if topic.parent %>"
+             <% end %>>
+      <%= render 'shared/fields/text_field', method: :qcode %>
+      <%= render 'shared/fields/text_field', method: :wikidata %>
+      <%= render 'shared/fields/text_field', method: :uri %>
+      <%# 🚅 super scaffolding will insert new fields above this line. %>
+    <% end %>
+
+    <div class="buttons">
+      <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
+      <%= link_to t('global.buttons.cancel'), cancel_path, class: "button-secondary" %>
+    </div>
+  <% end %>
+<% end %>

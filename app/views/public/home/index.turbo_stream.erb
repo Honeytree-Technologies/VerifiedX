@@ -1,0 +1,3 @@
+<%= turbo_stream.update :accounts_list do %>
+  <%= render 'public/home/results', pagination: @pagy, accounts: @accounts, topic: @topic %>
+<% end %>

@@ -1,0 +1,66 @@
+<% accounts = accounts.accessible_by(current_ability) %>
+<% team = @team || current_user.current_team %>
+<% context ||= team %>
+<% collection ||= :accounts %>
+<% hide_actions ||= false %>
+<% hide_back ||= false %>
+
+<% pagy ||= nil %>
+<% pagy, accounts = pagy(accounts, page_param: :accounts_page) unless pagy %>
+
+<%= action_model_select_controller do %>
+  <% updates_for context, collection do %>
+    <%= render 'account/shared/box', pagy: pagy do |p| %>
+      <% p.content_for :title, t(".contexts.#{context.class.name.underscore}.header") %>
+      <% p.content_for :description do %>
+        <%= t(".contexts.#{context.class.name.underscore}.description#{"_empty" unless accounts.any?}") %>
+        <%= render "shared/limits/index", model: accounts.model %>
+      <% end %>
+
+      <% p.content_for :table do %>
+        <% if accounts.any? %>
+          <table class="table table-auto">
+            <thead>
+            <tr>
+              <%= render "shared/tables/select_all" %>
+              <th><%= t('.fields.name.heading') %></th>
+              <th><%= t('.fields.mastodon_handle.heading') %></th>
+              <th><%= t('.fields.job_title.heading') %></th>
+              <th><%= t('.fields.organisation.heading') %></th>
+              <th><%= t('.fields.account_type.heading') %></th>
+              <th><%= t('accounts.fields.status._') %></th>
+              <%# 🚅 super scaffolding will insert new field headers above this line. %>
+              <th class="text-right"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <%= render partial: 'account/accounts/account', collection: accounts %>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :actions do %>
+        <% unless hide_actions %>
+          <% if context == team %>
+            <% if can? :create, Account.new(team: team) %>
+              <%= link_to t('.buttons.new'), [:new, :account, team, :account], class: "#{first_button_primary(:account)} new" %>
+            <% end %>
+          <% end %>
+
+          <%# 🚅 super scaffolding will insert new targets one parent action model buttons above this line. %>
+          <%# 🚅 super scaffolding will insert new bulk action model buttons above this line. %>
+          <%= render "shared/bulk_action_select" %>
+
+          <% unless hide_back %>
+            <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:account)} back" %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :raw_footer do %>
+        <%# 🚅 super scaffolding will insert new action model index views above this line. %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

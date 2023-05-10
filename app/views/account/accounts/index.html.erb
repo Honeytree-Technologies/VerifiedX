@@ -1,0 +1,137 @@
+<%= render 'account/shared/page' do |p| %>
+  <% p.content_for :title, t('.section') %>
+  <% p.content_for :actions do %>
+    <div class="flex justify-between items-center flex-wrap md:flex-nowrap" data-controller="account--search"
+         data-account--search-status-value="<%= params[:status] || 'all' %>">
+      <div class="flex-0">
+        <div class="sm:hidden">
+          <select id="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  name="status" data-account--search-target="statusSelect" data-action="account--search#statusFilter">
+            <option value="all" <%= 'selected' if params[:status] == 'all' %> >All</option>
+            <option value="accepted" <%= 'selected' if params[:status] == 'accepted' %>>Accepted</option>
+            <option value="pending" <%= 'selected' if params[:status] == 'pending' %>>Pending</option>
+            <option value="rejected" <%= 'selected' if params[:status] == 'rejected' %>>Rejected</option>
+            <option value="removed" <%= 'selected' if params[:status] == 'removed' %>>Removed</option>
+            <option value="claimed" <%= 'selected' if params[:status] == 'claimed' %>>Claimed</option>
+            <option value="verified" <%= 'selected' if params[:status] == 'verified' %>>Verified</option>
+          </select>
+        </div>
+        <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow
+         sm:flex dark:divide-gray-700 dark:text-gray-400" data-account-search-target="statusButtons">
+          <li class="w-full">
+            <button type='button' class="
+                <% if !params[:status].present? || params[:status] == 'all' %>
+                active text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white
+                <% else %>
+                bg-white hover:text-gray-700 hover:bg-gray-50
+                dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700
+                <% end %>
+                inline-block w-full p-4 rounded-l-lg focus:ring-4 focus:ring-blue-300 focus:outline-none whitespace-nowrap"
+                    data-account--search-value-param="all" data-action="account--search#statusFilter">
+              All
+            </button>
+          </li>
+          <li class="w-full">
+            <button type='button' class="
+                <% if params[:status] == 'accepted' %>
+                active text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white
+                <% else %>
+                bg-white hover:text-gray-700 hover:bg-gray-50
+                dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700
+                <% end %>
+                inline-block w-full p-4 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+                    data-account--search-value-param="accepted" data-action="account--search#statusFilter">Accepted
+            </button>
+          </li>
+          <li class="w-full">
+            <button type='button' class="
+                <% if params[:status] == 'pending' %>
+                active text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white
+                <% else %>
+                bg-white hover:text-gray-700 hover:bg-gray-50
+                dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700
+                <% end %>
+                inline-block w-full p-4 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+                    data-account--search-value-param="pending" data-action="account--search#statusFilter">Pending
+            </button>
+          </li>
+          <li class="w-full">
+            <button type='button' class="
+                <% if params[:status] == 'rejected' %>
+                active text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white
+                <% else %>
+                bg-white hover:text-gray-700 hover:bg-gray-50
+                dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700
+                <% end %>
+                inline-block w-full p-4 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                    data-account--search-value-param="rejected" data-action="account--search#statusFilter">Rejected
+            </button>
+          </li>
+          <li class="w-full">
+            <button type='button' class="
+                <% if params[:status] == 'removed' %>
+                active text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white
+                <% else %>
+                bg-white hover:text-gray-700 hover:bg-gray-50
+                dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700
+                <% end %>
+                inline-block w-full p-4 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                    data-account--search-value-param="removed" data-action="account--search#statusFilter">Removed
+            </button>
+          </li>
+          <li class="w-full">
+            <button type='button' class="
+                <% if params[:status] == 'claimed' %>
+                active text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white
+                <% else %>
+                bg-white hover:text-gray-700 hover:bg-gray-50
+                dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700
+                <% end %>
+                inline-block w-full p-4 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                    data-account--search-value-param="claimed" data-action="account--search#statusFilter">Claimed
+            </button>
+          </li>
+          <li class="w-full">
+            <button type='button' class="
+                <% if params[:status] == 'verified' %>
+                active text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white
+                <% else %>
+                bg-white hover:text-gray-700 hover:bg-gray-50
+                dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700
+                <% end %>
+                inline-block w-full p-4 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-r-lg"
+                    data-account--search-value-param="verified" data-action="account--search#statusFilter">Verified
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="h-min flex-1 flex space-x-2 px-2">
+        <div class="relative w-full">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <input type="search" name='search' id="search" value="<%= params[:search] %>" placeholder="Search"
+                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                  focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600
+                   dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                 data-account--search-target="search" data-action="keydown.enter->account--search#search" required autofocus>
+        </div>
+        <button type="submit" class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border
+         border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600
+         dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-action="account--search#search">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <span class="sr-only">Search</span>
+        </button>
+      </div>
+    </div>
+  <% end %>
+  <% p.content_for :body do %>
+    <%= render 'index', accounts: @accounts, pagy: @pagy %>
+  <% end %>
+<% end %>

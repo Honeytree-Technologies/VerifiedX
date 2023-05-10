@@ -1,0 +1,239 @@
+<div class="col-span-full xl:col-auto">
+  <div class="flex flex-col sm:flex-row sm:space-x xl:space-x-0 xl:flex-col sm:items-center xl:items-start xl:space-y p-4 mb-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+    <div class="flex flex-col sm:space-x-4 xl:space-x-0 xl:w-full">
+      <div class="w-full sm:w-max xl:w-full flex flex-col sm:flex-row items-center justify-center">
+        <img class="mb-2 w-40 h-40 rounded-lg" src="<%= account.mastodon_account&.[]('avatar') || asset_path('missing.png') %>" alt="<%= account.long_name %>"
+             data-profile--show-target="avatar">
+        <div class="grow h-full flex flex-col justify-center items-center px-2">
+          <% if account.organizations? %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="block w-16 h-16 m-2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
+            </svg>
+            <p class="font-bold mb-2">Organization</p>
+          <% else %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="block w-16 h-16 m-2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
+            </svg>
+            <p class="font-bold mb-2">Individual</p>
+          <% end %>
+          <% if account.verified? %>
+            <span class="h-8 w-min flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 my-1 rounded dark:bg-green-700
+             dark:text-green-400 border border-green-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+              </svg>
+              <span class="sr-only">Icon description</span>
+              <span class="px-2">Verified</span>
+            </span>
+          <% elsif account.claimed? %>
+            <span class="h-8 w-min flex items-center bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 my-1 rounded dark:bg-orange-700
+             dark:text-orange-400 border border-orange-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
+              </svg>
+              <span class="sr-only">Icon description</span>
+              <span class="px-2">Unverified</span>
+            </span>
+          <% elsif action_name == 'show' && !@profile %>
+            <button type="button" class="w-min text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+              font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
+              focus:outline-none dark:focus:ring-blue-800 whitespace-nowrap" data-profile--show-target="claim"
+                    data-public--main-handle-param="<%= account.mastodon_handle %>"
+                    data-public--main-target="claimButton"
+                    data-action="public--main#claim" disabled>Claim Profile
+            </button>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-bold dark:text-white whitespace-normal text-ellipsis overflow-hidden">
+            <%= @account.organizations? ? @account.organisation : account.long_name %>
+          </h2>
+        </div>
+        <ul class="mt-2 space-y-1">
+          <li class="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400">
+            <a href="<%= account.mastodon_url %>" target="_blank" data-profile--show-target="mastodonUrl" <%= 'rel=me' if account.verified? %>
+               class="flex flex-nowrap items-center">
+              <svg class="mr-2 w-4 h-4 text-gray-900 dark:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.327 8.566c0-4.339-2.843-5.61-2.843-5.61-1.433-.658-3.894-.935-6.451-.956h-.063c-2.557.021-5.016.298-6.45.956 0 0-2.843 1.272-2.843 5.61 0 .993-.019 2.181.012 3.441.103 4.243.778 8.425 4.701 9.463 1.809.479 3.362.579 4.612.51 2.268-.126 3.541-.809 3.541-.809l-.075-1.646s-1.621.511-3.441.449c-1.804-.062-3.707-.194-3.999-2.409a4.523 4.523 0 0 1-.04-.621s1.77.433 4.014.536c1.372.063 2.658-.08 3.965-.236 2.506-.299 4.688-1.843 4.962-3.254.434-2.223.398-5.424.398-5.424zm-3.353 5.59h-2.081V9.057c0-1.075-.452-1.62-1.357-1.62-1 0-1.501.647-1.501 1.927v2.791h-2.069V9.364c0-1.28-.501-1.927-1.502-1.927-.905 0-1.357.546-1.357 1.62v5.099H6.026V8.903c0-1.074.273-1.927.823-2.558.566-.631 1.307-.955 2.228-.955 1.065 0 1.872.409 2.405 1.228l.518.869.519-.869c.533-.819 1.34-1.228 2.405-1.228.92 0 1.662.324 2.228.955.549.631.822 1.484.822 2.558v5.253z"/>
+              </svg>
+              <span><%= account.mastodon_handle %></span>
+            </a>
+          </li>
+          <% if account.people? && account.job.present? %>
+            <li class="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400">
+              <svg class="mr-2 w-4 h-4 text-gray-900 dark:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
+              </svg>
+              <%= account.job %>
+            </li>
+          <% end %>
+          <% if account.show_email && account.email.strip.present? %>
+            <li class="flex flex-nowrap items-center text-sm font-normal text-gray-500 dark:text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 w-4 h-4 text-gray-900 dark:text-white">
+                <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"/>
+              </svg>
+              <a href="mailto:<%= account.email %>" class=" items-center"><%= account.email %></a>
+              <% if account.confirmed? %>
+                <svg data-tooltip-target="tooltip-verified-email" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 inline w-5 h-5 mx-3 text-green-800 dark:text-green-300">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div id="tooltip-verified-email" role="tooltip"
+                     class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white
+                      transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                  Verified Email
+                  <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+              <% else %>
+                <svg data-tooltip-target="tooltip-unverified-email" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 inline w-5 h-5 mx-3 text-yellow-800 dark:text-yellow-300">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
+                </svg>
+                <div id="tooltip-unverified-email" role="tooltip"
+                     class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white
+                      transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                  Unverified Email
+                  <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+          <% if account.show_phone && account.phone_number.strip.present? %>
+            <li class="flex flex-nowrap items-center text-sm font-normal text-gray-500 dark:text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 w-4 h-4 text-gray-900 dark:text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+              </svg>
+              <a href="mailto:<%= account.phone_number %>" class=" items-center"><%= account.phone_number %></a>
+            </li>
+          <% end %>
+          <% if account.location.present? && account.show_location %>
+            <li class="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400">
+              <svg class="mr-2 w-4 h-4 text-gray-900 dark:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <% if account.organizations? && account.address.present? %>
+                <%= account.address %><br>
+                <% end %>
+                <%= account.location %>
+              </div>
+            </li>
+          <% end %>
+          <% if account.organizations? %>
+            <li class="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 w-4 h-4 text-gray-900 dark:text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+              <div>
+                <%= account.long_name %>
+                <% if account.job.present? %>
+                  <br><%= account.job %>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col xl:block xl:space-y-4 max-w-full">
+      <div class="<%= 'hidden' unless account.mastodon_account&.[]('note').present? %> sm:flex-1">
+        <h3 class="mb-2 text-base font-bold text-gray-900 dark:text-white">About</h3>
+        <div class="text-sm font-normal text-gray-500 dark:text-gray-400 break-normal"
+             data-profile--show-target="description">
+          <%= account.mastodon_account&.[]('note')&.html_safe %>
+        </div>
+      </div>
+      <% if account.website_url.present? || account.blog_url.present? || account.urls.reject { |u| u.strip.empty? }.any? %>
+        <div class="sm:flex-1">
+          <h3 class="mb-2 text-base font-bold text-gray-900 dark:text-white">Links</h3>
+          <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+            <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+              <% if account.website_url.present? %>
+                <li>
+                  <small class="flex items-center">
+                    <svg class="w-4 h-4 mr-1.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>
+                    </svg>
+                    <b>Website:&nbsp;</b>
+                    <a href="<%= account.website_url %>" class="text-ellipsis flex items-center overflow-hidden text-blue-600 dark:text-blue-500 hover:underline"><%= account.website_url %></a>
+                  </small>
+                </li>
+              <% end %>
+              <% if account.blog_url.present? %>
+                <li>
+                  <small class="flex items-center">
+                    <svg class="w-4 h-4 mr-1.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>
+                    </svg>
+                    <b>Blog:&nbsp;</b>
+                    <a href="<%= account.blog_url %>" class="text-ellipsis flex items-center overflow-hidden text-blue-600 dark:text-blue-500 hover:underline"><%= account.blog_url %></a></small>
+                </li>
+              <% end %>
+              <% account.urls.each do |url| %>
+                <% next if url.strip.empty? %>
+                <li>
+                  <small class="flex items-center">
+                    <svg class="w-4 h-4 mr-1.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>
+                    </svg>
+                    <a href="<%= url %>" class="text-ellipsis flex items-center overflow-hidden text-blue-600 dark:text-blue-500 hover:underline"><%= url %></a></small>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <% if account.topics.any? %>
+    <div class="p-4 mb-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+      <div class="flow-root">
+        <h3 class="text-xl font-bold dark:text-white">Topics</h3>
+        <ul class="flex flex-wrap mt-4">
+          <% account.topics.each do |topic| %>
+            <li class="mb-2 mr-2 cursor-pointer p-0">
+              <a href="/?search=&topic=<%= topic.id %>" target="_blank" class="block bg-primary-100 hover:no-underline dark:bg-primary-200 text-primary-800 text-base font-medium px-3 py-1.5 rounded-md">
+                <%= topic.name %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <% if account.keywords.present? %>
+    <div class="p-4 mb-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+      <div class="flow-root">
+        <h3 class="text-xl font-bold dark:text-white">Keywords</h3>
+        <ul class="flex flex-wrap mt-4">
+          <% account.keywords.to_s.split(',').each do |keyword| %>
+            <li class="mb-2 mr-2 cursor-pointer p-0">
+              <a href="/?search=<%= keyword %>" target="_blank" class="block bg-primary-100 hover:no-underline dark:bg-primary-200 text-primary-800 text-base font-medium px-3 py-1.5 rounded-md">
+                <%= keyword %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <% if account.hashtags.present? %>
+    <div class="p-4 mb-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+      <div class="flow-root">
+        <h3 class="text-xl font-bold dark:text-white">Hashtags</h3>
+        <ul class="flex flex-wrap mt-4">
+          <% account.hashtags.to_s.split(',').each do |hashtag| %>
+            <li class="mb-2 mr-2 cursor-pointer p-0">
+              <a href="/?search=<%= hashtag %>" target="_blank" class="block bg-primary-100 hover:no-underline dark:bg-primary-200 text-primary-800 text-base font-medium px-3 py-1.5 rounded-md">
+                #<%= hashtag %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,63 @@
+@import 'animate.css';
+@import "./tailwind/components";
+@import "./tailwind/utilities";
+@import "./tailwind/dark-mode";
+@import "./tailwind/colors";
+
+@import './bulk_actions';
+@import "./electron";
+@import './devise';
+@import './fields';
+@import './turn';
+@import './tom_select';
+@import "datatables.net-dt/css/jquery.dataTables.css";
+@import "datatables.net-responsive-dt/css/responsive.dataTables.css";
+/* TODO We should be able to do this in Tailwind CSS. */
+.hover-indent-child {
+
+.indent-child {
+    transition: transform 0.2s ease;
+}
+
+&
+:hover {
+
+.indent-child {
+    transform: translateX(8px);
+}
+
+}
+}
+
+div[modal-backdrop] {
+    @apply backdrop-blur-sm;
+}
+
+.external-content {
+    a {
+        @apply text-blue-600 dark:text-blue-500 hover:underline;
+    }
+}
+
+form.button_to {
+    @apply inline-block;
+
+input[type=submit] {
+    @apply bg-transparent;
+
+&
+.button {
+    @apply bg-primary-500 hover:bg-primary-600;
+}
+
+}
+}
+
+/* hide the first breadcrumb chevron */
+ol.breadcrumb li:first-child svg {
+    display: none;
+}
+
+trix-toolbar .trix-button-row {
+    flex-wrap: wrap;
+}

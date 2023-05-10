@@ -1,0 +1,18 @@
+<div class="max-w-screen-xl grid grid-cols-1 px-0 md:px-4 pt-6 xl:grid-cols-3 xl:gap-4 mx-auto" data-controller="profile--show"
+     data-profile--show-handle-value="<%= @account.mastodon_handle %>"
+     data-profile--show-account-value="">
+  <%= render partial: 'public/accounts/card', locals: {account: @account} %>
+  <div class="col-span-2">
+    <div class="col-span-2">
+      <div class="w-full p-4 mb-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800" data-profile--show-target="accountStatuses">
+        <%= turbo_frame_tag 'account_statuses' %>
+      </div>
+    </div>
+  </div>
+  <template data-profile--show-target="accountFieldTemplate">
+    <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+      <b class="uppercase">${name}</b><br>
+      <span class="text-gray-600 dark:text-gray-900">${value}</span>
+    </li>
+  </template>
+</div>

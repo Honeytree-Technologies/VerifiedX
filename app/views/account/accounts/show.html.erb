@@ -1,0 +1,70 @@
+<%= render 'account/shared/page' do |p| %>
+  <% p.content_for :title, t('.section') %>
+  <% p.content_for :body do %>
+    <%= updates_for @account do %>
+      <%= render 'account/shared/box', divider: true do |p| %>
+        <% p.content_for :title, t('.header') %>
+        <% p.content_for :description do %>
+          <%= t('.description') %>
+          <%= t('.manage_description') if can? :manage, @account %>
+        <% end %>
+
+        <% p.content_for :body do %>
+          <% with_attribute_settings object: @account, strategy: :label do %>
+            <div class="flex space-y xl:space-y-0 space-x-0 xl:space-x flex-col xl:flex-row">
+              <div class="w-full xl:w-1/2 space-y">
+                <%= render 'shared/attributes/text', attribute: :name %>
+                <%= render 'shared/attributes/text', attribute: :mastodon_handle %>
+                <%= render 'shared/attributes/email', attribute: :email %>
+                <%= render 'shared/attributes/text', attribute: :first_name %>
+                <%= render 'shared/attributes/text', attribute: :last_name %>
+                <%= render 'shared/attributes/phone_number', attribute: :phone_number %>
+                <%= render 'shared/attributes/text', attribute: :country_name %>
+                <%= render 'shared/attributes/text', attribute: :region_name %>
+
+              </div>
+              <div class="w-full xl:w-1/2 space-y">
+                <%= render 'shared/attributes/option', attribute: :status %>
+                <%= render 'shared/attributes/text', attribute: :job_title %>
+                <%= render 'shared/attributes/text', attribute: :organisation %>
+                <%= render 'shared/attributes/text', attribute: :organisation_type %>
+                <%= render 'shared/attributes/text', attribute: :website_url, url: @account.website_url %>
+                <%= render 'shared/attributes/text', attribute: :blog_url, url: @account.blog_url %>
+                <% @account.urls.each do |url| %>
+                  <%= render 'shared/attributes/base', url: url do |p| %>
+                    <% p.content_for :heading, t("#{@account.class.name.pluralize.underscore}.fields.other_url.heading") %>
+                    <% p.content_for :body, url %>
+                  <% end %>
+                <% end %>
+                <%= render 'shared/attributes/has_many', attribute: :topics %>
+
+                <%= render 'shared/attributes/option', attribute: :show_email %>
+                <%= render 'shared/attributes/option', attribute: :show_phone %>
+                <%= render 'shared/attributes/text', attribute: :mastodon_url %>
+                <%= render 'shared/attributes/option', attribute: :show_location %>
+                <%= render 'shared/attributes/text', attribute: :keywords %>
+                <%= render 'shared/attributes/text', attribute: :hashtags %>
+                <%= render 'shared/attributes/option', attribute: :account_type %>
+                <%= render 'shared/attributes/text', attribute: :address %>
+                <%# 🚅 super scaffolding will insert new fields above this line. %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% p.content_for :actions do %>
+          <%= link_to t('.buttons.edit'), [:edit, :account, @account], class: first_button_primary if can? :edit, @account %>
+          <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
+          <%= button_to t('.buttons.destroy'), [:account, @account], method: :delete, class: first_button_primary, data: { confirm: t('.buttons.confirmations.destroy', model_locales(@account)) } if can? :destroy, @account %>
+          <%= link_to t('global.buttons.back'), [:account, @team, :accounts], class: first_button_primary %>
+        <% end %>
+
+        <% p.content_for :raw_footer do %>
+          <%# 🚅 super scaffolding will insert new action model index views above this line. %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%# 🚅 super scaffolding will insert new children above this line. %>
+  <% end %>
+<% end %>

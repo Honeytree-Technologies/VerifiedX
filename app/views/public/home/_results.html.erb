@@ -1,0 +1,20 @@
+<div class="-mt-1 pb-0.5">
+  <% if accounts.any? %>
+    <div class="search-results w-full max-w-md sm:max-w-lg xl:max-w-6xl mx-auto h-min  grid-cols-1 xl:grid-cols-2 grid gap-8">
+      <%= render partial: 'account', collection: accounts %>
+    </div>
+  <% else %>
+    <div class="px-2 py-4 lg:py-16 lg:px-20 flex justify-center">
+      <p>Sorry, no results were found for your search. Please try again with different keywords.</p>
+    </div>
+  <% end %>
+</div>
+<div class="search-results pb-7 px-8 space-y-7 w-full my-4">
+  <div class="sm:flex justify-center">
+    <% if pagination && pagination.pages > 1 %>
+      <div class="flex-0 mt-3 sm:mt-0">
+        <%== pagy_nav(pagination) %>
+      </div>
+    <% end %>
+  </div>
+</div>

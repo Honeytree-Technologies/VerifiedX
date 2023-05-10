@@ -1,0 +1,21 @@
+<div data-public--subscribe-target="step0" class="<%= 'hidden' if action_name == 'show' %> space-y">
+  <label for="handle" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+    Enter <%= Setting.application_profile %> Mastodon Handle
+  </label>
+  <div class="flex flex-col md:flex-row">
+    <div class="w-full md:w-2/3 md:pr-4">
+      <input type="text" name="handle" id="handle" class="bg-gray-50 border border-gray-300 text-gray-900
+               text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
+                dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="@handle@mastodon.social"
+             data-public--subscribe-target="mastodonHandle" required>
+      <small data-public--subscribe-target="handleError" class="text-red-500 hidden">
+        Invalid handle.
+      </small>
+    </div>
+    <button id='subscribe-check' type="submit" class="w-full md:w-1/3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
+             focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center h-min
+              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-action="public--subscribe#check">
+      Add to <%= Setting.application_name %>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<% account_type =  params[:account_type] == 'accounts' ? nil : params[:account_type] %>
+<div class="w-full lg:w-3/4 2xl:w-1/2 mx-auto p-4 mb-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+  <div id="public--subscribe" data-controller="public--subscribe"
+       data-public--subscribe-url-value="<%= create_account_path %>" tabindex="-1"
+       data-public--subscribe-account-value=""
+       data-public--subscribe-handle-value="<%= params[:handle] %>"
+       data-public--subscribe-account-type-value="<%= account_type %>"
+       aria-hidden="true" class="relative w-full p-4 overflow-x-hidden overflow-y-hidden border-transparent focus-visible:border-transparent focus-visible:ring-0 md:inset-0 h-modal md:h-full">
+    <%= render partial: "public/accounts/#{account_type || 'people'}/#{account_type || 'people'}_form" %>
+    <div data-public--subscribe-target="backdrop">
+      <%= render(partial: 'public/shared/backdrop', locals: { text: 'Loading ...' }) %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+en:
+  topics: &topics
+    label: &label Topics
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: ti ti-list
+    buttons: &buttons
+      new: Add New Topic
+      create: Create Topic
+      edit: Edit Topic
+      update: Update Topic
+      destroy: Remove Topic
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{topic_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Topic ID
+      name:
+        _: &name Name
+        label: *name
+        heading: *name
+      parent:
+        _: &name Parent
+        label: *name
+        heading: *name
+      team_id:
+        heading: Team ID
+      definition:
+        _: &definition Definition
+        label: *definition
+        heading: *definition
+      qcode:
+        _: &qcode Qcode
+        label: *qcode
+        heading: *qcode
+      wikidata:
+        _: &wikidata Wikidata
+        label: *wikidata
+        heading: *wikidata
+      uri:
+        _: &uri Uri
+        label: *uri
+        heading: *uri
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Topics"
+      index: "List Topics"
+      create: "Add a New Topic"
+      member_actions: "Actions for an Individual Topic"
+      show: "Retrieve a Topic"
+      update: "Update a Topic"
+      destroy: "Delete a Topic"
+      fields: *fields
+    index:
+      section: "Topics"
+      contexts:
+        team:
+          header: Topics
+          description: Below is a list of Topics that have been added for %{team_name}.
+          description_empty: No Topics have been added for %{team_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{topic_name}"
+      header: Topic Details
+      description: Below are the details we have for %{topic_name}.
+      manage_description: You'll also find options for updating these details or removing %{topic_name} from %{team_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Topic for %{team_name}"
+      header: New Topic Details
+      description: Please provide the details of the new Topic you'd like to add to %{team_name}.
+      form: *form
+    edit:
+      section: "%{topic_name}"
+      header: Edit Topic Details
+      description: You can update the details or settings for %{topic_name} below.
+      form: *form
+    notifications:
+      created: Topic was successfully created.
+      updated: Topic was successfully updated.
+      destroyed: Topic was successfully destroyed.
+  account:
+    topics: *topics
+    # 🚅 super scaffolding will insert the export for the locale view helper here.
+  activerecord:
+    attributes:
+      topic:
+        definition: *definition
+        qcode: *qcode
+        wikidata: *wikidata
+        uri: *uri
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

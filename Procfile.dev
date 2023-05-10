@@ -1,0 +1,5 @@
+web: bin/rails server -b 0.0.0.0 -p 3000
+worker: bundle exec sidekiq -t 25
+js: THEME="mastodon" yarn build --watch
+mastodon-css: yarn mastodon:build:css --watch
+mastodon-mailer-css: yarn mastodon:build:mailer:css --watch

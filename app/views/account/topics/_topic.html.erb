@@ -1,0 +1,35 @@
+<% team = @team || @team %>
+<% context ||= team %>
+<% collection ||= :topics %>
+<% hide_actions ||= false %>
+<% hide_back ||= false %>
+
+<% with_attribute_settings object: topic do %>
+  <tr data-id="<%= topic.id %>">
+    <%= render "shared/tables/checkbox", object: topic %>
+    <td><%= render 'shared/attributes/text', attribute: :name, url: [:account, topic] %></td>
+    <td><%= render 'shared/attributes/text', attribute: :definition %></td>
+    <td><%= render 'shared/attributes/belongs_to', attribute: :parent %></td>
+    <%# 🚅 super scaffolding will insert new fields above this line. %>
+    <td class="flex flex-wrap justify-end">
+      <% unless hide_actions %>
+        <% if can? :edit, topic %>
+          <div>
+            <%= link_to t('.buttons.shorthand.edit'), [:edit, :account, topic],
+                        class: 'button text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium
+                       rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
+                        focus:outline-none dark:focus:ring-blue-800 button-smaller' %>
+          </div>
+        <% end %>
+        <% if can? :destroy, topic %>
+          <%= button_to t('.buttons.shorthand.destroy'), [:account, topic], method: :delete,
+                        data: { confirm: t('.buttons.confirmations.destroy', model_locales(topic)) },
+                        class: 'button focus:outline-none text-white bg-red-700 hover:bg-red-800
+                         focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5
+                          mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 button-smaller' %>
+        <% end %>
+        <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

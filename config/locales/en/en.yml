@@ -1,0 +1,18 @@
+en:
+  models:
+    posts:
+      zero: '0 posts'
+      one: '%{count} post'
+      few: '%{count} post'
+      two: '%{count} posts'
+      lot: '%{count} posts'
+      other: '%{count} posts'
+  time:
+    today: "Today"
+    seconds:
+      zero: '0 seconds'
+      one: '%{count} second'
+      few: '%{count} second'
+      two: '%{count} seconds'
+      lot: '%{count} seconds'
+      other: '%{count} seconds'

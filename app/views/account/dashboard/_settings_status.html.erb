@@ -1,0 +1,25 @@
+<% mastodon_user = Setting.mastodon_user %>
+<%= turbo_frame_tag :settings_status, class: 'animate__animated animate__bounceIn' do %>
+  <% if mastodon_user %>
+    <div class="flex w-max flex-col">
+      <div class="flex w-max">
+        <small class="text-green-500">VerifiedX will act as user bellow</small>
+      </div>
+      <div class="flex w-max">
+        <img class="rounded-md h-16 w-16 aspect-square" src="<%= mastodon_user.avatar %>">
+        <div class="p-3">
+          <b class="cursor-pointer"><%= mastodon_user.display_name %></b><br>
+          <a href="<%= mastodon_user.url %>" target="_blank"><%= mastodon_user.url %></a>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="flex w-max">
+      <% if Setting.mastodon_instance.present? || Setting.mastodon_access_token.present? %>
+        <h3 class="text-red-500">Bad credentials, please provide correct information bellow</h3>
+      <% else %>
+        <h3>There is no linked mastodon account</h3>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

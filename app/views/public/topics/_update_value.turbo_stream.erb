@@ -1,0 +1,5 @@
+<% if frame_value %>
+  <%= turbo_stream.update frame_value do %>
+    <%= render partial: 'topic', collection: topics %>
+  <% end %>
+<% end %>

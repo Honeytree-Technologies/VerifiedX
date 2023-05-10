@@ -1,0 +1,23 @@
+<div class="<%= Topic.count.zero? ? 'grow' : 'w-full md:w-4/12' %> px-3 mb-6 md:mb-0">
+  <label class="block uppercase tracking-wide text-black text-xs font-bold mb-2  dark:text-white" for="search">Search</label>
+  <input id="search" type="search" class="text-sm appearance-none block w-full border-gray-400
+   rounded py-3 px-4 focus:outline-none focus:bg-white dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+         placeholder="Search here…" name='search' value="<%= params[:search] %>" data-public--search-target="search"
+         data-action="keydown.enter->public--search#search" <%= 'autofocus' if params[:search].present? || params[:topic].present? %>>
+</div>
+<% unless Topic.count.zero? %>
+  <div class="w-full md:w-6/12 px-3 mb-6 md:mb-0 flex flex-col">
+    <label class="block uppercase tracking-wide text-black text-xs font-bold mb-2  dark:text-white" for="grid-state">
+      Topics
+    </label>
+    <%= render partial: 'public/topics/topics_select',
+               locals: { value: params[:topic], topics: @topics,
+                         data: { controller: 'public--search', target: 'topic' } } %>
+  </div>
+<% end %>
+
+<div class="w-full md:w-2/12 px-3 md:mb-0 md:pt-7">
+  <button type="submit" class="text-sm xl:text-base font-bold leading-tight button w-full uppercase tracking-wide py-2.5 px-4 rounded justify-center"
+          data-action="public--search#search">Search
+  </button>
+</div>

@@ -1,0 +1,13 @@
+<%= stylesheet_link_tag 'https://rsms.me/inter/inter.css', media: 'all', 'data-turbo-track': 'reload' %>
+<link href="<%= Setting.application_favicon.present? && Setting.application_favicon&.attachment.present? ?
+                 url_for(Setting.application_favicon.attachment) :
+                 '/images/favicon.ico' %>" rel="shortcut icon" />
+<link href="<%= Setting.application_apple_icon.present? && Setting.application_apple_icon&.attachment.present? ?
+                 url_for(Setting.application_apple_icon.attachment) :
+                 '/images/icon.png' %>" rel="apple-touch-icon" />
+<%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+<%= javascript_include_tag 'application.mastodon', 'data-turbo-track': 'reload' %>
+<%= stylesheet_link_tag 'application.mastodon', media: 'all', 'data-turbo-track': 'reload' %>
+<%= javascript_tag "var MASTODON_INSTANCE = '#{Setting.mastodon_instance}';" if Setting.mastodon_instance %>
+<%= render 'layouts/head' %>

@@ -1,0 +1,10 @@
+<% if current_user.memberships.first.admin? %>
+  <%= render 'account/shared/menu/item', {
+    url: main_app.polymorphic_path([:account, current_team, :users]),
+    label: t('users.navigation.label'),
+  } do |p| %>
+    <% p.content_for :icon do %>
+      <i class="<%= t('accounts.navigation.icon') %>"></i>
+    <% end %>
+  <% end %>
+<% end %>

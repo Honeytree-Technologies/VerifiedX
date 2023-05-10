@@ -1,0 +1,43 @@
+<% search_frame = SecureRandom.uuid %>
+<% value_frame = "#{search_frame}_value" %>
+<% topics ||= [] %>
+<% value ||= '' %>
+<% name ||= 'topic' %>
+<% data ||= nil %>
+<div class="group grow relative appearance-none block w-full border-gray-400 rounded py-2 px-1
+  focus:outline-none focus:bg-white text-base bg-white border dark:bg-gray-600 dark:border-gray-500 dark:text-white" data-controller="topics"
+     <%= "data-#{ data[:controller] }-target=topicsController" if data %>>
+  <div class="absolute z-10 inset-y-0 right-0 flex items-center pr-2 cursor-pointer invisible group-hover:visible"
+       data-action='click->topics#clearSearch'>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </div>
+  <div class="text-gray-500 w-full inline inset-y-0 left-0 flex items-center pl-3 cursor-pointer z-0 m-1 text-sm
+   dark:text-gray-400"
+       data-topics-target="placeholder"
+       data-action='click->topics#toggle'>Select Topics...
+  </div>
+  <input type="hidden" name="<%= name %>" value="<%= value %>" data-topics-target="input"
+         <%= "data-#{ data[:controller] }-target=#{ data[:target] }" if data %>>
+  <%= turbo_frame_tag search_frame, class: 'absolute z-50 top-full left-0 mt-0.5 w-full',
+                      data: { 'topics-target': 'frame' } %>
+  <%= turbo_frame_tag value_frame do %>
+    <% topics&.each do |topic| %>
+    <span id="topic-<%= topic.id %>" class="relative z-5 m-0.5 inline-flex items-center px-2 py-1 mr-2 text-sm
+                        font-medium text-gray-800 bg-gray-100 rounded dark:bg-gray-700 dark:text-gray-300" data-topics-target="resultItem">
+                      <%= topic.name.capitalize %>
+      <button type="button" class="inline-flex items-center p-0.5 ml-2 text-sm text-gray-400
+                       bg-transparent rounded-sm hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600
+                        dark:hover:text-gray-300" data-action="click->topics#removeTopic"
+              data-topics-topic-param="<%= topic.id %>">
+                          <svg class="w-3.5 h-3.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                               xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                          </svg>
+                          <span class="sr-only">Remove badge</span>
+                      </button>
+                    </span>
+    <% end %>
+  <% end %>
+</div>

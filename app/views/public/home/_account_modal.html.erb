@@ -1,0 +1,152 @@
+<template id="account-status-template">
+  <article>
+    <div class="p-2 mt-2 pb-4 border-bottom">
+      <div class="status status-public space-y-2">
+        <div class="${pinned ? '' : 'hidden'} font-bold">
+          <svg class="w-3.5 h-3.5 inline-block dark:fill-white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+               viewBox="0 0 472.613 472.613" xml:space="preserve">
+            <path d="M325.631,233.515V49.231C325.631,22.041,303.59,0,276.401,0h-80.188c-27.189,0-49.231,22.041-49.231,49.231v184.285
+			c-36.143,8.619-63.053,41.043-63.053,79.826h142.529v159.272h19.692V313.341h142.534
+			C388.684,274.558,361.775,242.135,325.631,233.515z"/>
+          </svg>
+          Pinned post
+        </div>
+        <div class="${reblog ? '' : 'hidden'} font-bold">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-3.5 h-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
+          </svg>
+
+          ${reblog ? reblogger.display_name : ''} boosted
+        </div>
+        <div class="flex justify-between">
+          <a href="${account.url}" target="_blank" class="grow dark:text-gray-200 text-gray-700 hover:text-gray-700 flex flex-nowrap items-center">
+            <div class="account__avatar">
+              <img class="rounded-md w-16" src="${account.avatar}" alt="${handle}">
+            </div>
+            <div class="px-2">
+              <b>${account.display_name}</b><br>
+              <small>${handle}</small>
+            </div>
+          </a>
+          <a href="${url}" target="_blank" class="dark:hover:text-gray-200 text-right w-min sm:w-auto text-gray-600 flex flex-nowrap items-center" target="_blank" rel="noopener noreferrer">
+                    <span class="status__visibility-icon hidden sm:inline">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM6.262 6.072a8.25 8.25 0 1010.562-.766 4.5 4.5 0 01-1.318 1.357L14.25 7.5l.165.33a.809.809 0 01-1.086 1.085l-.604-.302a1.125 1.125 0 00-1.298.21l-.132.131c-.439.44-.439 1.152 0 1.591l.296.296c.256.257.622.374.98.314l1.17-.195c.323-.054.654.036.905.245l1.33 1.108c.32.267.46.694.358 1.1a8.7 8.7 0 01-2.288 4.04l-.723.724a1.125 1.125 0 01-1.298.21l-.153-.076a1.125 1.125 0 01-.622-1.006v-1.089c0-.298-.119-.585-.33-.796l-1.347-1.347a1.125 1.125 0 01-.21-1.298L9.75 12l-1.64-1.64a6 6 0 01-1.676-3.257l-.172-1.03z" clip-rule="evenodd"/>
+                      </svg>
+                    </span>
+            <time>${new Date(created_at).toLocaleString()}</time>
+          </a>
+        </div>
+        <div class="status__content status__content--with-action">
+          <div class="status__content__text status__content__text--visible translate external-content">
+            ${content}
+          </div>
+        </div>
+        <div class="media-gallery"></div>
+      </div>
+    </div>
+  </article>
+</template>
+<template id="account-fields-template">
+  <li class="external-content w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+    <b class="uppercase">${name}</b><br>
+    <span class="text-gray-600 dark:text-gray-900">${value}</span>
+  </li>
+</template>
+<template id="account-template">
+  <div class="account__header__image flex items-center h-36 md:h-48 overflow-y-hidden bg-gray-200">
+    <img src="${header}" alt="" class="w-full">
+  </div>
+  <div class="account__header__bar">
+    <div class="flex flex-row">
+      <a class="w-3/5 text-center justify-center" href="${url}" rel="noopener noreferrer" target="_blank">
+        <div class="w-24 ml-6 -mt-10 border-2 border-white">
+          <img src="${avatar}" alt="${acct}">
+        </div>
+        <div class="my-3 mx-2 text-left">
+            <h1 class="text-blue-600 dark:text-blue-500 hover:underline" ><b class="text-black-800">${display_name}</b><br>
+              <small>${handle}</small>
+            </h1>
+        </div>
+      </a>
+      <div class="w-2/5 text-right flex flex-col items-end pr-2">
+        <span class="hidden h-8 flex items-center bg-green-100 my-2 text-green-800 text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-green-700
+             dark:text-green-400 border border-green-400" data-public--account-target="verified" >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+              </svg>
+              <span class="sr-only">Icon description</span>
+              <span class="px-2">Verified</span>
+            </span>
+        <span class="hidden h-8 flex items-center bg-orange-100 my-2 text-orange-800 text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-orange-700
+             dark:text-orange-400 border border-orange-400" data-public--account-target="unVerified" >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
+              </svg>
+              <span class="sr-only">Icon description</span>
+              <span class="px-2">Unverified</span>
+            </span>
+        <a href="${url}" rel="noopener noreferrer" target="_blank" class="relative button logo-button my-2 w-min"
+           tabindex="0" data-public--account-target="following">
+          <span>Follow</span>
+        </a>
+        <a class="cursor-pointer text-blue-600 dark:text-blue-500 hover:underline"
+           data-public--main-handle-param="${handle}"
+           data-public--main-target="claimButton"
+           data-public--account-target="claim" data-action="public--main#claim" disabled>Claim Profile</a>
+      </div>
+    </div>
+    <div class="account__header__extra">
+      <div class="account__header__bio">
+        <div class="external-content account__header__content text-xs p-1 mb-2" data-public--account-target="note">
+          ${note}
+        </div>
+        <ul class="account__header__fields w-full text-xs font-medium text-gray-900 bg-white border
+                 border-gray-200 rounded-lg dark:bg-gray-900 dark:border-gray-600 dark:text-white">
+        </ul>
+      </div>
+      <div class="account__header__extra__links flex">
+        <a class="py-1 px-2 text-blue-600 dark:text-blue-500 hover:underline" title="588" href="${url}">
+          <span><strong><span>${statuses_count}</span></strong> Posts</span>
+        </a>
+        <a class="py-1 px-2 text-blue-600 dark:text-blue-500 hover:underline" href="${url}/following" target="_blank" rel="noreferrer">
+          <span><strong><span>${following_count}</span></strong> Following</span>
+        </a>
+        <a class="py-1 px-2 text-blue-600 dark:text-blue-500 hover:underline" href="${url}/followers" target="_blank" rel="noreferrer">
+          <span><strong><span>${followers_count}</span></strong> Followers</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
+<div id="public--account" data-controller="public--account" tabindex="-1" aria-hidden="true" class="fixed top-0
+   left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+  <button class="hidden" data-modal-target="public--account" data-modal-show="public--account"
+          data-public--account-target="modalButton"></button>
+  <div class="relative w-full h-full max-w-2xl md:h-auto">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+      <!-- Modal header -->
+      <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white" data-public--account-target="title">
+          Static modal
+        </h3>
+        <button id="public--account-close" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200
+           hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600
+            dark:hover:text-white" data-modal-hide="public--account">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="p-2 md:p-6 space-y-6">
+        <div class="h-[calc(100vh-8rem)] w-full mx-auto
+        overflow-y-auto box-table pb-0.5 p-2 bg-slate-50 dark:bg-gray-800 overflow-x-hidden ">
+          <div data-public--account-target="accountInfo"></div>
+          <div data-public--account-target="accountStatuses" class="max-h-min"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+en:
+  settings:
+    home:
+      home_title: Get Your Profile Verified on VerifiedX
+      home_text:
+        VerifiedX is a platform that enables you to authenticate your online presence, establish trust with your
+        audience and increase your credibility. By verifying your profile on VerifiedX, you can show that you are
+        a legitimate entity or individual, and provide assurance to your followers that they can trust the information
+        you share. Stand out from the crowd and get your profile verified on VerifiedX today.
+      home_button: Find trustworthy and credible sources on VerifiedX
+      search_engine_title: Find reliable and verified voices on Mastodon
+    feed:
+      feed_title: Verified Expert Posts
+      feed_text:
+        Search and explore the latest posts from verified experts
+        in one convenient location. Use the search bar to refine
+        your results and find the expertise you need.
+    disclaimer:
+      VerifiedX is a project of the Fourth Estate<strong><em>® \</em></strong> and
+      <a href="https://honeytreetech.com/">Honeytree Technologies</a>.
+      <br>
+      VerifiedX is a early stage application - There may be bugs,  changes, and that things may occasionally break.
+      <br>
+      Follow <a href="https://newsie.social/@jeff">@jeff@Newsie.social</a> for updates.

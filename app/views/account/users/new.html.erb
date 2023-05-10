@@ -1,0 +1,77 @@
+<%= render 'account/shared/page' do |p| %>
+  <% p.content_for :title, t('.section') %>
+  <% p.content_for :body do %>
+    <%= form_for [:account, @user] do |form| %>
+      <%= render 'account/shared/forms/errors', form: form %>
+    <% end if @user.errors.any? %>
+
+    <div class="grid grid-cols-1 gap-y gap-x-8 lg:grid-cols-2">
+      <div class="xl:col-span-1 space-y-8">
+        <%= render 'account/shared/box', divider: true do |p| %>
+          <% p.content_for :title, t('.profile.header') %>
+          <% p.content_for :description, t('.profile.description') %>
+          <% p.content_for :body do %>
+            <%= form_for [:account, @user], html: {id: dom_id(@user, :details), class: 'form'} do |form| %>
+              <% with_field_settings form: form do %>
+                <div class="grid grid-cols-1 gap-y gap-x sm:grid-cols-2">
+                  <div class="sm:col-span-2">
+                    <label class="relative inline-flex items-center mb-4 cursor-pointer">
+                      <input type="checkbox" value="" name="role" class="sr-only peer" <%= 'checked' if @user.memberships.where(team_id: current_team.id).first&.admin? %>>
+                      <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                      <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Admin</span>
+                    </label>
+                  </div>
+                  <div class="sm:col-span-2">
+                    <%= render 'shared/fields/email_field', method: :email, options: {autofocus: true} %>
+                  </div>
+
+                  <div class="sm:col-span-1">
+                    <%= render 'shared/fields/text_field', method: :first_name %>
+                  </div>
+
+                  <div class="sm:col-span-1">
+                    <%= render 'shared/fields/text_field', method: :last_name %>
+                  </div>
+
+                  <% if cloudinary_enabled? %>
+                    <div class="sm:col-span-2">
+                      <%= render 'shared/fields/cloudinary_image', method: :profile_photo_id %>
+                    </div>
+                  <% end %>
+
+                  <div class="sm:col-span-2">
+                    <%= render 'shared/fields/super_select', method: :time_zone,
+                               choices: time_zone_options_for_select(@user.time_zone, nil, ActiveSupport::TimeZone),
+                               other_options: {search: true} %>
+                  </div>
+
+                  <%= render 'shared/fields/password_field', method: :password, options: {show_strength_indicator: true} %>
+                  <%= render 'shared/fields/password_field', method: :password_confirmation %>
+                  <% if multiple_locales? %>
+                    <div class="sm:col-span-2">
+                      <%= render 'shared/fields/buttons', method: :locale, options: {"": t("locale.default")}.merge(t("locale.locales")) %>
+                    </div>
+                  <% end %>
+
+                  <%= render "account/users/fields", user: @user, form: form %>
+                  <%# 🚅 super scaffolding will insert new fields above this line. %>
+                </div>
+              <% end %>
+
+              <div class="buttons">
+                <%= form.submit t('.buttons.update_profile'), class: "button" %>
+              </div>
+            <% end %>
+      <% end %>
+        <% end %>
+
+        <% if two_factor_authentication_enabled? %>
+          <div id="two-factor">
+            <%= render partial: "devise/registrations/two_factor" %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  <% end %>
+<% end %>

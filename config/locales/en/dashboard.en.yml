@@ -1,0 +1,50 @@
+en:
+  dashboard: &dashboard
+    label: &label Dashboard
+    breadcrumbs:
+      label: *label
+      settings: Settings
+    navigation:
+      label: *label
+      icon: ti ti-settings
+    buttons: &buttons
+      update: Update Settings
+    fields: &fields
+      mastodon_instance: Mastodon Instance
+      mastodon_access_token: Mastodon Access Token
+      home_title: Home Title
+      home_text: Home Text
+      feed_title: Feed Title
+      feed_text: Feed Text
+      home_button: Home Button
+      application_name: Application Name
+      application_title: Application Title
+      application_description: Application Description
+      application_keywords: Application Keywords
+      application_upper_url: Application Url (uppercase)
+      application_profile: Application Profile
+      search_engine_title: Search Engine Title
+      privacy_policy: Privacy Policy
+      terms_of_use: Terms of Use
+      disclaimer: Disclaimer
+      faq: FAQ
+      about: About
+      creation_dm: Creation DM
+      verified_dm: Verified DM
+      jobs_list: Jobs List
+      organisation_types: Organisation Types
+      application_logo: Application Logo
+      application_logo_dark: Application Dark Logo
+      application_favicon: Application Favicon
+      application_apple_icon: Application Apple Icon
+      application_og_image: Application OG Image
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    settings:
+      section: Settings
+      header: Edit Application Settings
+      description: You can update the settings below.
+      form: *form
+  account:
+    dashboard: *dashboard

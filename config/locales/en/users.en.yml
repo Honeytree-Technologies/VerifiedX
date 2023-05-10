@@ -1,0 +1,60 @@
+en:
+  users: &users
+    label: &label Users
+    navigation:
+      label: *label
+      icon: ti ti-users
+    fields: &fields
+      _:
+      role: Role
+      # 🚅 super scaffolding will insert new fields above this line.
+    buttons: &buttons
+      new: Add New User
+      create: Create User
+      edit: Edit User
+      update: Update User
+      destroy: Remove User
+      update_profile: Update Profile
+      update_password: Update Password
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{user_name}? This will also remove any child resources and can't be undone.
+    index:
+      section: "Users"
+      contexts:
+        team:
+          header: Users
+          description: Below is a list of Users.
+          description_empty: No Accounts have been added yet.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: Users
+      header: User Details
+      description: Below is a list of Users.
+      manage_description: You'll also find options for updating these details or removing %{user_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    new:
+      section: "New Profile"
+      profile:
+        header: Update User
+        description: You can update the email address and also update the way the name is displayed.
+      password:
+        header: Update User's Password
+      fields: *fields
+      buttons: *buttons
+    notifications:
+      created: User was successfully created.
+      updated: User was successfully updated.
+      destroyed: User was successfully destroyed.
+  account:
+    users: *users
+  activerecord:
+    attributes:
+      user:
+        _:
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.

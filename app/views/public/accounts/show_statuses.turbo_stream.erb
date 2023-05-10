@@ -1,0 +1,3 @@
+<%= turbo_stream.update 'account_statuses' do %>
+  <%= render partial: 'public/accounts/status', collection: @statuses %>
+<% end %>

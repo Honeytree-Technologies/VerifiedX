@@ -1,0 +1,9 @@
+<% rounded ||= true %>
+<% text ||= false %>
+<div class="z-10 absolute left-0 top-0 h-full w-full backdrop-blur-sm flex items-center justify-center <%= 'rounded-lg' if rounded %>">
+  <% if text %>
+  <p class="font-bold"><%= text %></p>
+  <% else %>
+    <small>Not enough data</small>
+  <% end %>
+</div>

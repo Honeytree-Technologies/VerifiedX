@@ -1,0 +1,26 @@
+REPO: git@github.com:Honeytree-Technologies/VerifiedX.git
+SSH_PORT: 22
+SECRET_KEY_BASE:
+BASE_URL: http://localhost:3000
+MARKETING_SITE_URL: /account
+APPLICATION_NAME: verifiedx
+DATABASE_URL: verifiedx_production
+HIDE_THINGS: true
+HIDE_EXAMPLES: true
+PUMA_SOCK: unix:///home/verifiedx/apps/verifiedx/shared/tmp/sockets/verifiedx.sock
+PUMA_SERVICE_NAME: verifiedx
+DEPLOY_TO: /home/verifiedx/apps/verifiedx/
+DEPLOY_SERVER: verifiedx.org
+RAILS_ENV: production
+RACK_ENV: production
+SERVER_USER: verifiedx
+BRANCH: master
+REDIS_URL: redis://localhost:6379
+RAILS_MAX_THREADS: 10
+#SMTP_SERVER:
+#SMTP_PORT:
+#SMTP_DOMAIN:
+#SMTP_DEFAULT_FROM: admin@verifiedx.org
+#SMTP_LOGIN:
+#SMTP_PASSWORD:
+# STRIPE_SECRET_KEY: ...

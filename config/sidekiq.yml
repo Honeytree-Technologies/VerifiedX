@@ -1,0 +1,25 @@
+:concurrency: 10
+staging:
+  :concurrency: 5
+production:
+  :concurrency: 10
+:queues:
+  - critical
+  - default
+  - mailers
+  - low
+  - dms
+  - action_mailbox_routing
+  - scheduler
+  - crowler
+:scheduler:
+  :listened_queues_only: true
+  :schedule:
+    accounts_crowler_scheduler:
+      cron: '0,5,15,20,25,35,40,45,55 * * * *'
+      class: Scheduler::AccountsCrowlerScheduler
+      queue: scheduler
+    accounts_removal_scheduler:
+      every: '1h'
+      class: Scheduler::AccountsRemovalScheduler
+      queue: scheduler

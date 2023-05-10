@@ -1,0 +1,6 @@
+@import "tom-select/dist/css/tom-select.default.min.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "mastodon/application";

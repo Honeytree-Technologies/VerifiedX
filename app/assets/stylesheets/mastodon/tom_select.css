@@ -1,0 +1,33 @@
+@layer utilities {
+
+    .ts-wrapper.multi .ts-control [data-value], .ts-wrapper.multi .ts-control>div {
+        background-image: none !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        @apply relative m-0.5 border-0 inline-flex items-center px-2 py-1 mr-2 text-sm font-medium text-gray-800 !bg-gray-100 rounded dark:!bg-gray-700 dark:text-gray-300
+    }
+
+    .ts-control {
+        background: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: inherit !important;
+        font-size: inherit !important;
+
+        input, .item {
+            font-size: inherit !important;
+            color: inherit !important;
+            @apply placeholder-gray-500 dark:placeholder-gray-400;
+        }
+
+        .ts-dropdown .option {
+            @apply dark:text-white dark:bg-gray-500;
+
+            &.active {
+                 @apply dark:bg-gray-700;
+             }
+        }
+    }
+}

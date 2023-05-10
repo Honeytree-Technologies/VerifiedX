@@ -1,0 +1,135 @@
+<% cancel_path ||= account.persisted? ? [:account, account] : [:account, @team, :accounts] %>
+
+<%= form_with model: account, url: (account.persisted? ? [:account, account] : [:account, @team, :accounts]), local: true, class: 'form' do |form| %>
+  <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
+    <%= render 'account/shared/forms/errors', form: form %>
+
+    <% with_field_settings form: form do %>
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y" data-controller="country-region">
+          <%= render 'shared/fields/options', method: :account_type %>
+          <%= render 'shared/fields/text_field', method: :name, options: { autofocus: true }, other_options: { label: 'Display Name' } %>
+
+          <%= render 'shared/fields/text_field', method: :mastodon_handle %>
+          <%= render 'shared/fields/email_field', method: :email %>
+          <%= render 'shared/fields/text_field', method: :first_name %>
+          <%= render 'shared/fields/text_field', method: :last_name %>
+          <%= render 'shared/fields/phone_field', method: :phone_number %>
+          <%= render 'shared/fields/text_area', method: :address %>
+          <label class="block" for="profile-country">Country *</label>
+          <input type="text" name="profile-country" id="profile-country" class="bg-gray-50 border
+                 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block placeholder-gray-400
+                  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 text-gray-900 text-sm dark:placeholder-gray-400 dark:text-white"
+                 placeholder="Country *" data-country-region-target="profileCountry" tabindex="6"
+                 data-controller="tom-select" data-tom-select-url-value="/countries.json" data-tom-select-placeholder-value="Country *"
+                 <% if @account.region %>
+                 data-tom-select-items-value="<%= { id: @account.region&.country_id, name: @account.region&.country&.name }.to_json if @account.region %>"
+                 <% end %>
+                 data-action="change->country-region#updateRegion">
+          <label class="block" for="profile-region">City/State/Region *</label>
+          <input type="text" name="account[region_id]" id="profile-region" class="bg-gray-50 border
+                 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block placeholder-gray-400
+                  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 text-gray-900 text-sm dark:placeholder-gray-400 dark:text-white"
+                 placeholder="City/State/Region *" data-country-region-target="profileRegion" tabindex="6"
+                 data-controller="tom-select" data-tom-select-url-value="/regions.json" data-tom-select-placeholder-value="City/State/Region *"
+                 <% if @account.region %>
+                 data-tom-select-items-value="<%= { id: @account.region_id, name: @account.region.name }.to_json if @account.region %>"
+                 <% end %>
+                 data-tom-select-params-value="" <%= 'disabled' unless @account.region %>>
+
+          <div class="flex xl:flex-row xl:space-y-0 justify-between my-4">
+            <div class="w-full">
+              <div data-tooltip-target="tooltip-keywords">
+                <input type="text" name="account[keywords]" id="account-keywords" class="bg-gray-50 border
+                 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block placeholder-gray-400
+                  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 text-gray-900 text-sm dark:placeholder-gray-400 dark:text-white"
+                       placeholder="Keywords ..." tabindex="10" data-controller="keywords-field"
+                       data-keywords-field-placeholder-value="Keywords ..."
+                       data-keywords-field-items-value="<%= account.keywords.to_s.split(',') %>">
+              </div>
+              <div id="tooltip-keywords" role="tooltip"
+                   class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white
+                      transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Keywords ...
+                <div class="tooltip-arrow" data-popper-arrow></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex xl:flex-row xl:space-y-0 justify-between my-4">
+            <div class="w-full">
+              <div data-tooltip-target="tooltip-hashtags">
+                <input type="text" name="account[hashtags]" id="account-hashtags" class="bg-gray-50 border
+                 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block placeholder-gray-400
+                  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 text-gray-900 text-sm dark:placeholder-gray-400 dark:text-white"
+                       placeholder="Hashtags ..." tabindex="10" data-controller="hashtags-field"
+                       data-hashtags-field-placeholder-value="Hashtags ..."
+                       data-hashtags-field-items-value="<%= account.hashtags.to_s.split(',') %>"
+                       data-hashtags-field-url-value="<%= account.instance || account.mastodon_handle.to_s.split('@').last %>">
+              </div>
+              <div id="tooltip-hashtags" role="tooltip"
+                   class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white
+                      transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Hashtags ...
+                <div class="tooltip-arrow" data-popper-arrow></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full xl:w-1/2 space-y">
+          <%= render 'shared/fields/text_field', method: :mastodon_url %>
+          <%= render 'shared/fields/options', method: :status %>
+          <div>
+            <%= form.label :topic_ids, 'Topics', class: 'block' %>
+            <%= render partial: 'public/topics/topics_select',
+                       locals: { name: 'account[topic_ids][]', value: account.topics.pluck(:id).join(','),
+                                 topics: account.topics } %>
+          </div>
+          <%= render 'shared/fields/text_field', method: :job_title %>
+          <%= render 'shared/fields/text_field', method: :organisation %>
+          <%= render 'shared/fields/text_field', method: :organisation_type %>
+          <%= render 'shared/fields/text_field', method: :website_url %>
+          <%= render 'shared/fields/text_field', method: :blog_url %>
+          <div class="flex w-full flex-col space-y-4 justify-between my-4" data-controller="profile--urls"
+               data-profile--urls-tabindex-value="12" >
+            <% @account.urls.each do |url| %>
+              <div class="group flex items-center w-full">
+                <input type="text" placeholder="Other URL" tabindex="12"
+                       class="w-2/3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                    focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+                     dark:placeholder-gray-400 dark:text-white" value="<%= url %>" name="account[urls][]">
+                <button data-action="profile--urls#removeUrl" type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white
+             focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-1 text-center
+              inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white
+               dark:focus:ring-blue-800 mx-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                  </svg>
+                  <span class="sr-only">Icon description</span>
+                </button>
+                <button data-action="profile--urls#addUrl" type="button" class="group-[:last-child]:visible group-[:nth-of-type(4)]:visible group-[:nth-of-type(5)]:invisible invisible text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white
+             focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-1 text-center
+              inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white
+               dark:focus:ring-blue-800 mx-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  <span class="sr-only">Icon description</span>
+                </button>
+              </div>
+            <% end %>
+          </div>
+
+          <%= render 'shared/fields/options', method: :show_email %>
+          <%= render 'shared/fields/options', method: :show_phone %>
+          <%= render 'shared/fields/options', method: :show_location %>
+          <%# 🚅 super scaffolding will insert new fields above this line. %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="buttons">
+      <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
+      <%= link_to t('global.buttons.cancel'), cancel_path, class: "button-secondary" %>
+    </div>
+  <% end %>
+<% end %>

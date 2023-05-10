@@ -1,0 +1,10 @@
+<div class="max-w-screen-xl grid grid-cols-1 px-0 md:px-4 pt-6 xl:grid-cols-3 xl:gap-4 mx-auto" data-controller="profile--show"
+     data-profile--show-handle-value="<%= @account.mastodon_handle %>"
+     data-profile--show-account-value="">
+  <%= render partial: 'public/accounts/card', locals: { account: @account } %>
+  <div class="col-span-2" data-controller="public--profile">
+    <%= turbo_frame_tag 'account_form' do %>
+      <%= render partial: 'public/accounts/form' %>
+    <% end %>
+  </div>
+</div>

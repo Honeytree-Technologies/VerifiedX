@@ -1,0 +1,248 @@
+en:
+  accounts: &accounts
+    label: &label Accounts
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: ti ti-user
+    buttons: &buttons
+      new: Add New Account
+      create: Create Account
+      edit: Edit Account
+      update: Update Account
+      destroy: Remove Account
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{account_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      other_url:
+        heading: Other URL
+      id:
+        heading: Account ID
+      team_id:
+        heading: Team ID
+      name:
+        _: &name Display Name
+        label: *name
+        heading: *name
+      mastodon_handle:
+        _: &mastodon_handle Mastodon Handle
+        label: *mastodon_handle
+        heading: *mastodon_handle
+      twitter_handle:
+        _: &twitter_handle Twitter Handle
+        label: *twitter_handle
+        heading: *twitter_handle
+      area_of_focus:
+        _: &area_of_focus Area Of Focus
+        label: *area_of_focus
+        heading: *area_of_focus
+      where_to_publish:
+        _: &where_to_publish Where To Publish
+        label: *where_to_publish
+        heading: *where_to_publish
+      description:
+        _: &description Description
+        label: *description
+        heading: *description
+      topics:
+        _: &topics Topics
+        label: *topics
+        heading: *topics
+        placeholder: None
+      active:
+        _: &active Active
+        label: *active
+        heading: *active
+        options:
+          yes: "Yes"
+          no: "No"
+      status:
+        _: &status Status
+        label: *status
+        heading: *status
+        options:
+          pending: Pending
+          accepted: Accepted
+          rejected: Rejected
+          claimed: Claimed
+          verified: Verified
+      email:
+        _: &email Email
+        label: *email
+        heading: *email
+      first_name:
+        _: &first_name First Name
+        label: *first_name
+        heading: *first_name
+      last_name:
+        _: &last_name Last Name
+        label: *last_name
+        heading: *last_name
+      country_name:
+        _: &country_name Country
+        label: *country_name
+        heading: *country_name
+      region_name:
+        _: &region_name Region
+        label: *region_name
+        heading: *region_name
+      phone_number:
+        _: &phone_number Phone Number
+        label: *phone_number
+        heading: *phone_number
+      job_title:
+        _: &job_title Job Title
+        label: *job_title
+        heading: *job_title
+      organisation:
+        _: &organisation Organisation
+        label: *organisation
+        heading: *organisation
+      organisation_type:
+        _: &organisation_type Organisation Type
+        label: *organisation_type
+        heading: *organisation_type
+      website_url:
+        _: &website_url Website Url
+        label: *website_url
+        heading: *website_url
+      blog_url:
+        _: &blog_url Blog Url
+        label: *blog_url
+        heading: *blog_url
+      show_email:
+        _: &show_email Show Email
+        label: *show_email
+        heading: *show_email
+        options:
+          yes: "Yes"
+          no: "No"
+      show_phone:
+        _: &show_phone Show Phone
+        label: *show_phone
+        heading: *show_phone
+        options:
+          yes: "Yes"
+          no: "No"
+      mastodon_url:
+        _: &mastodon_url Mastodon Url
+        label: *mastodon_url
+        heading: *mastodon_url
+      show_location:
+        _: &show_location Show Location
+        label: *show_location
+        heading: *show_location
+        options:
+          yes: "Yes"
+          no: "No"
+      keywords:
+        _: &keywords Keywords
+        label: *keywords
+        heading: *keywords
+      hashtags:
+        _: &hashtags Hashtags
+        label: *hashtags
+        heading: *hashtags
+      account_type:
+        _: &account_type Account Type
+        label: *account_type
+        heading: *account_type
+        options:
+          people: Individual
+          organizations: Organization
+      address:
+        _: &address Address
+        label: *address
+        heading: *address
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Accounts"
+      index: "List Accounts"
+      create: "Add a New Account"
+      member_actions: "Actions for an Individual Account"
+      show: "Retrieve a Account"
+      update: "Update a Account"
+      destroy: "Delete a Account"
+      fields: *fields
+    index:
+      section: "Accounts"
+      contexts:
+        team:
+          header: Accounts
+          description: Below is a list of Accounts that have been added.
+          description_empty: No Accounts have been added.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{account_name}"
+      header: Account Details
+      description: Below are the details we have for %{account_name}.
+      manage_description: You'll also find options for updating these details or removing %{account_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Account for %{team_name}"
+      header: New Account Details
+      description: Please provide the details of the new Account you'd like to add.
+      form: *form
+    edit:
+      section: "%{account_name}"
+      header: Edit Account Details
+      description: You can update the details or settings for %{account_name} below.
+      form: *form
+    notifications:
+      created: Account was successfully created.
+      updated: Account was successfully updated.
+      destroyed: Account was successfully destroyed.
+  account:
+    accounts: *accounts
+  activerecord:
+    attributes:
+      account:
+        name: *name
+        mastodon_handle: *mastodon_handle
+        twitter_handle: *twitter_handle
+        area_of_focus: *area_of_focus
+        where_to_publish: *where_to_publish
+        description: *description
+        topics: *topics
+        active: *active
+        status: *status
+        email: *email
+        first_name: *first_name
+        last_name: *last_name
+        country_name: *country_name
+        region_name: *region_name
+        phone_number: *phone_number
+        job_title: *job_title
+        organisation: *organisation
+        organisation_type: *organisation_type
+        website_url: *website_url
+        blog_url: *blog_url
+        show_email: *show_email
+        show_phone: *show_phone
+        mastodon_url: *mastodon_url
+        show_location: *show_location
+        keywords: *keywords
+        hashtags: *hashtags
+        account_type: *account_type
+        address: *address
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

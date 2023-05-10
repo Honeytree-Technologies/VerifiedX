@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="theme-<%= BulletTrain::Themes::Light.color %> <%= "theme-secondary-#{BulletTrain::Themes::Light.secondary_color}" if BulletTrain::Themes::Light.secondary_color %> <%= "theme-logo-color-shift" if BulletTrain::Themes::Light.logo_color_shift %>">
+<head>
+  <%= render 'shared/layouts/head' %>
+</head>
+<body class="bg-light-gradient text-gray-700 text-sm font-normal dark:bg-dark-gradient dark:text-darkPrimary-300"
+      data-controller="public--main"
+      data-public--main-user-value="{}"
+      data-public--main-url-value="<%= create_account_path %>">
+<% flash.each do |flash_type, message| %>
+  <div id="flash-messages" class="animate__animated animate__bounceIn fixed mx-auto top-20 left-0 right-0 z-50 flex items-center w-full max-w-sm p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <% if flash_type == 'error' %>
+      <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Error icon</span>
+      </div>
+    <% elsif flash_type == 'warning' %>
+      <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Warning icon</span>
+      </div>
+    <% else %>
+      <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Check icon</span>
+      </div>
+    <% end %>
+    <div class="ml-3 text-sm font-normal"><%= message %></div>
+    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg
+     focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500
+      dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#flash-messages" aria-label="Close">
+      <span class="sr-only">Close</span>
+      <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+      </svg>
+    </button>
+  </div>
+<% end %>
+<div class="p-4 bg-primary-900 electron-draggable electron-title-bar hidden electron-mobile-only"></div>
+<div class="min-h-screen md:h-auto shadow main-container">
+  <div class="bg-gray-100 dark:bg-darkPrimary-800 dark:border-gray-500 <%= BulletTrain::Themes::Light.navigation == :left ? "lg:border-l lg:rounded-l-none" : "" %>">
+
+    <nav id="public--header" class="top-0 shadow-md fixed w-full bg-white border-gray-200 px-2 sm:px-4 py-1 z-40 dark:bg-gray-900">
+      <button id="add-new-account" class="hidden" data-action="public--main#addAccount"></button>
+      <div class="lg:container flex items-center justify-between mx-auto whitespace-nowrap">
+        <a href="/" class="md:grow lg:grow-0 flex items-center hover:no-underline">
+          <% if Setting.application_logo&.attachment.present? %>
+            <img src="<%= url_for Setting.application_logo.attachment %>"
+                 class="dark:hidden max-h-6 mr-3 sm:max-h-9" alt="<%= Setting.application_name %>"/>
+            <img src="<%= Setting.application_logo_dark.present? ?
+                            url_for(Setting.application_logo_dark.attachment) :
+                            url_for(Setting.application_logo.attachment) %>"
+                 class="hidden dark:block max-h-6 mr-3 sm:max-h-9" alt="<%= Setting.application_name %>"/>
+          <% else %>
+            <h3 class="text-xl max-h-6 mr-3 sm:max-h-9 font-extrabold tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white !leading-snug">
+              <%= Setting.application_name %>
+            </h3>
+          <% end %>
+        </a>
+        <div class="flex items-center md:order-2 lg:w-80" data-controller="dark-light">
+          <div class="flex justify-end col-span-1">
+            <button data-tooltip-target="form-input-icon-example-toggle-dark-mode-tooltip" type="button"
+                    data-toggle-dark="light" class="flex items-center p-2 mr-1 md:mr-2 text-xs font-medium text-gray-700
+                       bg-white border border-gray-200 rounded-lg toggle-dark-state-example hover:bg-gray-100
+                        hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500
+                         dark:bg-gray-800 focus:outline-none dark:text-gray-400 dark:border-gray-600
+                          dark:hover:text-white dark:hover:bg-gray-700" data-action="dark-light#toggle">
+              <svg aria-hidden="true" data-toggle-icon="moon" class="w-4 h-4 dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                   data-dark-light-target="moon">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+              </svg>
+              <svg aria-hidden="true" data-toggle-icon="sun" class="w-4 h-4 hidden dark:block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                   data-dark-light-target="sun">
+                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+              </svg>
+              <span class="sr-only">Toggle dark/light mode</span>
+            </button>
+
+            <div id="form-input-icon-example-toggle-dark-mode-tooltip" role="tooltip"
+                 class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white transition-opacity
+                    duration-300 bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700 opacity-0 invisible"
+                 data-popper-placement="bottom" data-dark-light-target="tooltip">Toggle dark mode
+            </div>
+          </div>
+          <button class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium
+             rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-4 dark:bg-primary-600 dark:hover:bg-primary-700
+              focus:outline-none dark:focus:ring-primary-800 hidden md:block" data-action="public--main#addAccount">Suggest
+            New Listing
+          </button>
+
+          <button id="login-button" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4
+             focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-1 md:mr-2
+              dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 <%= 'hidden' if current_account %>"
+                  data-public--main-target="loginButton" data-modal-target="public--login"
+                  data-modal-toggle="public--login" disabled>Log in
+          </button>
+          <div class="flex grow justify-center">
+            <button type="button" class="min-w-max flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4
+             focus:ring-gray-300 dark:focus:ring-gray-600 <%= 'hidden' unless current_account %>" id="user-menu-button" aria-expanded="false"
+                    data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom"
+                    data-public--main-target="logoutButton" disabled>
+              <span class="sr-only">Open user menu</span>
+              <img class="w-8 h-8 rounded-full" src="<%= current_account&.mastodon_account&.[]('avatar') || asset_path('missing.png') %>"
+                   data-public--main-target="userAvatar" alt="user photo">
+            </button>
+          </div>
+          <!-- Dropdown menu -->
+          <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg
+             shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+            <div class="px-4 py-3">
+              <span class="block text-sm text-gray-900 dark:text-white" data-public--main-target="userName"></span>
+              <span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400"
+                    data-public--main-target="userHandle"></span>
+            </div>
+            <ul class="py-2" aria-labelledby="user-menu-button">
+              <li>
+                <a href="javascript:void(0);" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+                   dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                   data-public--main-target="userProfile" data-action="public--main#editProfile">Profile</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600
+                   dark:text-gray-200 dark:hover:text-white" data-action="public--main#logout">Sign
+                  out</a>
+              </li>
+            </ul>
+          </div>
+          <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="absolute md:relative top-full right-0 items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
+          <ul class="flex flex-col p-4 border-t-0 border border-gray-100 bg-gray-50 md:flex-row md:space-x-8
+             md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <a href="/" class="block py-2 pl-3 pr-4 rounded
+                <% if controller_name == 'home' && action_name == 'index' %>
+                text-white bg-blue-700 md:bg-transparent md:text-blue-600 md:p-0 dark:text-white
+                <% else %>
+                text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400
+                md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
+                <% end %>" aria-current="page">Home</a>
+            </li>
+            <% if defined?(Verifiedx::Analytics) %>
+              <li>
+                <a href="/feed" class="block py-2 pl-3 pr-4 rounded
+                <% if controller_name == 'feed' && action_name == 'index' %>
+                text-white bg-blue-700 md:bg-transparent md:text-blue-600 md:p-0 dark:text-white
+                <% else %>
+                text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400
+                md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
+                <% end %>" aria-current="page" data-turbo-stream>Feed</a>
+              </li>
+            <% end %>
+            <li>
+              <a href="/about" class="block py-2 pl-3 pr-4 rounded
+                <% if controller_name == 'home' && action_name == 'about' %>
+                text-white bg-blue-700 md:bg-transparent md:text-blue-600 md:p-0 dark:text-white
+                <% else %>
+                text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400
+                md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
+                <% end %>" aria-current="page" data-turbo-stream>About</a>
+            </li>
+            <li>
+              <a href="/faq" class="block py-2 pl-3 pr-4 rounded
+                <% if controller_name == 'home' && action_name == 'faq' %>
+                text-white bg-blue-700 md:bg-transparent md:text-blue-600 md:p-0 dark:text-white
+                <% else %>
+                text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400
+                md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
+                <% end %>" data-turbo-stream>FAQ</a>
+            </li>
+            <li>
+              <button class="w-full text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium
+                     rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 my-2 md:mr-4 md:m-0 dark:bg-primary-600 dark:hover:bg-primary-700
+                      focus:outline-none dark:focus:ring-primary-800 md:hidden" data-action="public--main#addAccount">Suggest
+                New Listing
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main class="min-h-screen flex-1 relative z-0 focus:outline-none mt-12" tabindex="0">
+      <div class="mx-auto px-3 sm:px-8 py-6">
+        <%= yield %>
+      </div>
+    </main>
+  </div>
+</div>
+<%= yield :raw_footer %>
+<footer class="p-4 bg-white shadow md:px-6 md:py-8 dark:bg-gray-900" data-turbo-permanent>
+  <div class="sm:flex sm:items-center sm:justify-between">
+    <a href="#" class="flex items-center mb-4 sm:mb-0">
+      <% if Setting.application_logo&.attachment.present? %>
+        <img src="<%= url_for Setting.application_logo.attachment %>"
+             class="dark:hidden max-h-6 mr-3 sm:max-h-9" alt="<%= Setting.application_name %>"/>
+        <img src="<%= Setting.application_logo_dark.present? ?
+                        url_for(Setting.application_logo_dark.attachment) :
+                        url_for(Setting.application_logo.attachment) %>"
+             class="hidden dark:block max-h-6 mr-3 sm:max-h-9" alt="<%= Setting.application_name %>"/>
+      <% else %>
+        <h3 class="text-xl max-h-6 mr-3 sm:max-h-9 font-extrabold tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white !leading-snug">
+          <%= Setting.application_name %>
+        </h3>
+      <% end %>
+    </a>
+    <ul class="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">
+      <li>
+        <a href="/about" class="mr-4 hover:underline md:mr-6">About</a>
+      </li>
+      <li>
+        <a href="/faq" class="mr-4 hover:underline md:mr-6">FAQ</a>
+      </li>
+      <li>
+        <a href="/privacy-policy" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+      </li>
+      <li>
+        <a href="/terms-of-use" class="mr-4 hover:underline md:mr-6 ">Terms of Use</a>
+      </li>
+    </ul>
+  </div>
+  <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
+  <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
+    <%= Setting.disclaimer.html_safe %>
+  </span>
+  <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
+    Powered by <a href="https://verifiedx.org" target="_blank">VerifiedX</a> – a
+    <a href="https://honeytreetech.com/" target="_blank">Honeytree Technologies</a> project.
+  </span>
+</footer>
+<%= render 'public/home/login_modal' %>
+<%= render 'themes/mastodon/alert_modal' %>
+</body>
+</html>

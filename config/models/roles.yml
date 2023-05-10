@@ -1,0 +1,22 @@
+default:
+  models:
+    Account: manage
+    Topic: manage
+    Team: read
+
+editor:
+  models:
+    Account: manage
+    Topic: manage
+    Membership: manage
+    Team: read
+
+admin:
+  includes:
+    - editor
+  manageable_roles:
+    - default
+    - admin
+    - editor
+  models:
+    User: manage

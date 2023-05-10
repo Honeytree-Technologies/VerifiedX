@@ -1,0 +1,5 @@
+<p>Welcome <%= @account.name %>!</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><%= link_to 'Confirm my email', confirm_email_url(token: @account.confirmation_token) %></p>

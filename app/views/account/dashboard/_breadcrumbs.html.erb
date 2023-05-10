@@ -1,0 +1,3 @@
+<% team ||= current_user.teams.first %>
+<%= render 'account/shared/breadcrumb', label: t('.label'), url: account_settings_path %>
+<%= render 'account/shared/breadcrumb', label: t('.settings'), url: account_settings_path %>

@@ -1,0 +1,13 @@
+development:
+  adapter: redis
+
+test:
+  adapter: test
+
+production:
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  channel_prefix: verifiedx_production
+  driver: :ruby
+  ssl_params:
+    verify_mode: <%= OpenSSL::SSL::VERIFY_NONE %>

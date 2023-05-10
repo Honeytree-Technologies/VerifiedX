@@ -1,0 +1,340 @@
+<%= form_tag account_settings_path, local: true, multipart: true, class: 'form space-y' do %>
+  <div data-controller="tabs">
+    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+      <li class="mr-2">
+        <span class="group cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg
+         bg-white text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500 dark:bg-gray-800"
+              data-action="click->tabs#changeTab" data-tabs-target="tab">
+          <svg class="w-5 h-5 mr-2
+           text-blue-600 dark:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/>
+          </svg>
+          Pages
+        </span>
+      </li>
+      <li class="mr-2">
+        <span class="group cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg
+         border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+              data-action="click->tabs#changeTab" data-tabs-target="tab">
+          <svg aria-hidden="true" class="w-5 h-5 mr-2
+           text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z"/>
+          </svg>
+          Branding
+        </span>
+      </li>
+      <li class="mr-2">
+        <span class="group cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg
+         border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+              data-action="click->tabs#changeTab" data-tabs-target="tab">
+          <svg aria-hidden="true" class="w-5 h-5 mr-2
+           text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+          </svg>
+          Data
+        </span>
+      </li>
+      <li class="mr-2">
+        <span class="group cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg
+         border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" aria-current="page"
+              data-action="click->tabs#changeTab" data-tabs-target="tab">
+          <svg aria-hidden="true" class="w-5 h-5 mr-2
+           text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+          Mastodon Settings
+        </span>
+      </li>
+      <li class="mr-2">
+        <span class="group cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg
+         border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+              data-action="click->tabs#changeTab" data-tabs-target="tab">
+          <svg aria-hidden="true" class="w-5 h-5 mr-2
+           text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          Settings
+        </span>
+      </li>
+    </ul>
+    <div data-tabs-target="content" class="w-full space-y p-4 mb-4 bg-white rounded-b-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+      <div class="flex space-y space-x flex-col xl:space-y-0">
+        <label class="block" for="privacy_policy"><%= t '.fields.privacy_policy' %></label>
+        <%= rich_text_area_tag :privacy_policy, Setting.privacy_policy, class: 'formatted_content trix-content h-60 overflow-y-auto', data: { mentions: [], topics: [] } %>
+      </div>
+      <div class="flex space-y space-x flex-col xl:space-y-0">
+        <label class="block" for="privacy_policy"><%= t '.fields.terms_of_use' %></label>
+        <%= rich_text_area_tag :terms_of_use, Setting.terms_of_use, class: 'formatted_content trix-content h-60 overflow-y-auto', data: { mentions: [], topics: [] } %>
+      </div>
+      <div class="flex space-y space-x flex-col xl:space-y-0">
+        <label class="block" for="privacy_policy"><%= t '.fields.about' %></label>
+        <%= rich_text_area_tag :about, Setting.about, class: 'formatted_content trix-content h-60 overflow-y-auto', data: { mentions: [], topics: [] } %>
+      </div>
+      <div class="flex space-y space-x flex-col xl:space-y-0">
+        <label class="block" for="privacy_policy"><%= t '.fields.faq' %></label>
+        <%= rich_text_area_tag :faq, Setting.faq, class: 'formatted_content trix-content h-60 overflow-y-auto', data: { mentions: [], topics: [] } %>
+      </div>
+    </div>
+    <div data-tabs-target="content" class="w-full space-y p-4 mb-4 bg-white rounded-b-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+      <hr>
+      <h4 class="underline text-gray-800 dark:text-gray-300">Application</h4>
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="application_name"><%= t '.fields.application_name' %></label>
+            <div class="mt-1.5">
+              <input id="application_name" type="text" value="<%= Setting.application_name %>" name="application_name"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+          <div class="">
+            <label class="block" for="application_upper_url"><%= t '.fields.application_upper_url' %></label>
+            <div class="mt-1.5">
+              <input id="application_upper_url" type="text" value="<%= Setting.application_upper_url %>" name="application_upper_url"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+          <div class="">
+            <label class="block" for="application_profile"><%= t '.fields.application_profile' %></label>
+            <div class="mt-1.5">
+              <input id="application_profile" type="text" value="<%= Setting.application_profile %>" name="application_profile"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+          <div class="">
+            <label class="block" for="application_title"><%= t '.fields.application_title' %></label>
+            <div class="mt-1.5">
+              <input id="application_title" type="text" value="<%= Setting.application_title %>" name="application_title"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+          <div class="">
+            <label class="block" for="application_description"><%= t '.fields.application_description' %></label>
+            <div class="mt-1.5">
+              <textarea id="application_description" type="text"
+                        name="application_description"
+                        class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300"><%= Setting.application_description %></textarea>
+            </div>
+          </div>
+          <div class="">
+            <label class="block" for="application_keywords"><%= t '.fields.application_keywords' %></label>
+            <div class="mt-1.5">
+              <textarea id="application_keywords" type="text" name="application_keywords"
+                        class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300"><%= Setting.application_keywords %></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="flex w-full h-min" data-controller="image-field"
+               data-image-field-label-value="<%= t '.fields.application_logo' %>"
+               data-image-field-name-value="application_logo"
+               data-image-field-filename-value="<%= Setting.application_logo&.attachment&.filename %>"
+               data-image-field-url-value="<%= url_for(Setting.application_logo.attachment) if Setting.application_logo&.attachment&.attached? %>">
+          </div>
+          <div class="flex w-full h-min dark" data-controller="image-field"
+               data-image-field-label-value="<%= t '.fields.application_logo_dark' %>"
+               data-image-field-name-value="application_logo_dark"
+               data-image-field-filename-value="<%= Setting.application_logo_dark&.attachment&.filename %>"
+               data-image-field-url-value="<%= url_for(Setting.application_logo_dark.attachment) if Setting.application_logo_dark&.attachment&.attached? %>">
+          </div>
+          <div class="flex w-full h-min" data-controller="image-field"
+               data-image-field-label-value="<%= t '.fields.application_favicon' %>"
+               data-image-field-name-value="application_favicon"
+               data-image-field-filename-value="<%= Setting.application_favicon&.attachment&.filename %>"
+               data-image-field-url-value="<%= url_for(Setting.application_favicon.attachment) if Setting.application_favicon&.attachment&.attached? %>">
+          </div>
+          <div class="flex w-full h-min" data-controller="image-field"
+               data-image-field-label-value="<%= t '.fields.application_apple_icon' %>"
+               data-image-field-name-value="application_apple_icon"
+               data-image-field-filename-value="<%= Setting.application_apple_icon&.attachment&.filename %>"
+               data-image-field-url-value="<%= url_for(Setting.application_apple_icon.attachment) if Setting.application_apple_icon&.attachment&.attached? %>">
+          </div>
+          <div class="flex w-full h-min" data-controller="image-field"
+               data-image-field-label-value="<%= t '.fields.application_og_image' %>"
+               data-image-field-name-value="application_og_image"
+               data-image-field-filename-value="<%= Setting.application_og_image&.attachment&.filename %>"
+               data-image-field-url-value="<%= url_for(Setting.application_og_image.attachment) if Setting.application_og_image&.attachment&.attached? %>">
+          </div>
+        </div>
+      </div>
+      <hr>
+      <h4 class="underline text-gray-800 dark:text-gray-300">Home Page</h4>
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="home_title"><%= t '.fields.home_title' %></label>
+            <div class="mt-1.5">
+              <input id="home_title" type="text" value="<%= Setting.home_title %>" name="home_title"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+        </div>
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="home_text"><%= t '.fields.home_text' %></label>
+            <div class="mt-1.5">
+              <input id="home_text" type="text"
+                     value="<%= Setting.home_text %>" name="home_text"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="home_button"><%= t '.fields.home_button' %></label>
+            <div class="mt-1.5">
+              <input id="home_button" type="text" value="<%= Setting.home_button %>" name="home_button"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+        </div>
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="search_engine_title"><%= t '.fields.search_engine_title' %></label>
+            <div class="mt-1.5">
+              <input id="search_engine_title" type="text"
+                     value="<%= Setting.search_engine_title %>" name="search_engine_title"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <h4 class="underline text-gray-800 dark:text-gray-300">Feed Page</h4>
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="feed_title"><%= t '.fields.feed_title' %></label>
+            <div class="mt-1.5">
+              <input id="feed_title" type="text" value="<%= Setting.feed_title %>" name="feed_title"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+        </div>
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="feed_text"><%= t '.fields.feed_text' %></label>
+            <div class="mt-1.5">
+              <input id="feed_text" type="text"
+                     value="<%= Setting.feed_text %>" name="feed_text"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="flex space-y space-x flex-col xl:space-y-0">
+        <label class="block" for="disclaimer"><%= t '.fields.disclaimer' %></label>
+        <%= rich_text_area_tag :disclaimer, Setting.disclaimer, class: 'formatted_content trix-content', data: { mentions: [], topics: [] } %>
+      </div>
+    </div>
+    <div data-tabs-target="content" class="w-full space-y p-4 mb-4 bg-white rounded-b-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="jobs_list"><%= t '.fields.jobs_list' %></label>
+            <div class="mt-1.5">
+              <textarea id="jobs_list" type="text" name="jobs_list"
+                        class="h-80 block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300"><%= Setting.jobs_list %></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="organisation_types"><%= t '.fields.organisation_types' %></label>
+            <div class="mt-1.5">
+              <textarea id="organisation_types" type="text" name="organisation_types"
+                        class="h-80 block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300"><%= Setting.organisation_types %></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-tabs-target="content" class="w-full space-y p-4 mb-4 bg-white rounded-b-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800">
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="mastodon_instance"><%= t '.fields.mastodon_instance' %></label>
+            <div class="mt-1.5">
+              <input id="mastodon_instance" type="text" value="<%= Setting.mastodon_instance %>" name="mastodon_instance"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+        </div>
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="mastodon_client_key"><%= t '.fields.mastodon_access_token' %></label>
+            <div class="mt-1.5">
+              <input id="mastodon_access_token" type="text"
+                     value="<%= Setting.mastodon_access_token %>" name="mastodon_access_token"
+                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="creation_dm"><%= t '.fields.creation_dm' %></label>
+            <div class="mt-1.5">
+              <textarea id="creation_dm" type="text" name="creation_dm"
+                        class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300"><%= Setting.creation_dm %></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+        <div class="w-full xl:w-1/2 space-y">
+          <div class="">
+            <label class="block" for="verified_dm"><%= t '.fields.verified_dm' %></label>
+            <div class="mt-1.5">
+              <textarea id="verified_dm" type="text" name="verified_dm"
+                        class="h-40 block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300"><%= Setting.verified_dm %></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-tabs-target="content" class="w-full space-y p-4 mb-4 bg-white rounded-b-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800"></div>
+  </div>
+  <div class="buttons flex justify-end">
+    <%= submit_tag t('.buttons.update'), class: "button" %>
+  </div>
+<% end %>

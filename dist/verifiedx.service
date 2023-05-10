@@ -1,0 +1,19 @@
+[Unit]
+Description=Puma HTTP Server for verifiedx (production)
+After=network.target
+
+[Service]
+Environment=RAILS_ENV=production
+Type=simple
+User=verifiedx
+WorkingDirectory=/home/verifiedx/apps/verifiedx/current
+ExecStart=/home/verifiedx/.rvm/bin/rvm default do bundle exec puma -C /home/verifiedx/apps/verifiedx/current/config/puma.rb
+ExecReload=/bin/kill -TSTP $MAINPID
+StandardOutput=append:/home/verifiedx/apps/verifiedx/current/log/puma.access.log
+StandardError=append:/home/verifiedx/apps/verifiedx/current/log/puma.error.log
+Restart=always
+RestartSec=1
+SyslogIdentifier=puma
+
+[Install]
+WantedBy=multi-user.target
