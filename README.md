@@ -1,7 +1,7 @@
 VerifiedX
 =========
 
-VerifiedX is an official project of the [Honeytree Technologies](https://honeytreetech.com) and [Newsie.social,](https://Newsie.social). It serves as a directory and tool to discover and verify accounts on Mastodon and other federated social media platforms.
+VerifiedX is an official project of the [Honeytree Technologies](https://honeytreetech.com) and [Newsie.social](https://Newsie.social). It serves as a directory and tool to discover and verify accounts on Mastodon and other federated social media platforms.
 
 This beta application is still in its early stages, so users should anticipate occasional bugs, changes, and disruptions.
 
@@ -13,45 +13,46 @@ Furthermore, the service assists readers in discovering and following verified a
 
 The upcoming version of the service will concentrate on tackling federated social media challenges and enhancing the discoverability and value of content and profiles.
 
-For updates, feature suggestions, or complaints, please follow @jeff@Newsie.social.
+For updates, feature suggestions, or complaints, please follow [@jeff@Newsie.social](https://newsie.social/@jeff).
 
-## <a name="pre-requisites"></a>**Pre-requisites** 
+To deploy VerifiedX on your own server, please visit the official repository at [https://github.com/Honeytree-Technologies/VerifiedX](https://github.com/Honeytree-Technologies/VerifiedX).
+
+### **Pre-requisites** 
 - A machine running **Ubuntu 20.04** or **Debian 11** that you have root access to
-- A **domain name** (or a subdomain) for the Mastodon server, e.g. example.com
+- A **domain name** (or a subdomain) for the VerifiedX server, e.g. example.com
 - An e-mail delivery service or other **SMTP server**
 
 You will be running the commands as root. If you aren’t already root, switch to root: sudo su -
-### <a name="system-repositories"></a>**System repositories** 
+### **System repositories** 
 Make sure curl, wget, gnupg, apt-transport-https, lsb-release and ca-certificates is installed first:
 
 	apt install -y curl wget gnupg apt-transport-https lsb-release ca-certificates
-	#### <a name="node-js"></a>**Node.js** 
-	curl -sL https://deb.nodesource.com/setup\_16.x | bash -
-
-	sudo apt -get install -y nodejs
-### <a name="system-packages"></a>**System packages** 
+### **System packages** 
 	apt update
 
 	apt install -y imagemagick ffmpeg libpq-dev libxml2-dev libxslt1-dev file \
-
 	git-core  g++ libprotobuf-dev protobuf-compiler pkg-config gcc autoconf bison \
-
 	build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev \
-
 	libncurses5-dev libffi-dev libgdbm-dev nginx postgresql postgresql-contrib \
-
 	libidn11-dev libicu-dev libjemalloc-dev
-#### **Install Yarn**
+
+### **Install Nodejs** 
+	curl -sL https://deb.nodesource.com/setup\_16.x | bash -
+
+	sudo apt install -y nodejs
+
+### **Install Yarn**
 	curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
 
 	echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
 	sudo apt update && sudo apt install -y yarn
 
-	corepack *enable*
+	corepack enable
 
-	yarn *set* version classic
-#### **Install Redis**
+	yarn set version classic
+
+### **Install Redis**
 	curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
 
 	echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb\_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
@@ -66,22 +67,7 @@ Make sure curl, wget, gnupg, apt-transport-https, lsb-release and ca-certificate
 
 	sudo systemctl start redis-server
 
-####
-#### **Install Redis**
-	curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-
-	echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb\_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-
-	sudo apt update
-
-	sudo apt install -y redis
-
-	sudo systemctl daemon-reload
-
-	sudo systemctl enable redis-server
-
-	sudo systemctl start redis-server
-	#### **Install ElasticSearch**
+### **Install ElasticSearch**
 	curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic.gpg
 
 	echo "deb [signed-by=/usr/share/keyrings/elastic.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
@@ -90,24 +76,27 @@ Make sure curl, wget, gnupg, apt-transport-https, lsb-release and ca-certificate
 
 	sudo apt install -y elasticsearch
 
-For security edit /etc*/*elasticsearch/elasticsearch.yml to set network.host
+For security edit /etc/elasticsearch/elasticsearch.yml to set network.host
 
-. . .
+	. . .
 
-\# ---------------------------------- Network -----------------------------------
+	# ---------------------------------- Network -----------------------------------
 
-\#
+	#
 
-\# Set the bind address to a specific IP (IPv4 or IPv6):
+	# Set the bind address to a specific IP (IPv4 or IPv6):
 
-	\#network.host: localhost
-### Enable and start service
+	network.host: localhost
+Enable and start service
+
 	sudo systemctl daemon-reload
 
 	sudo systemctl enable elasticsearch
 
 	sudo systemctl start elasticsearch
-	### <a name="installing-ruby"></a>**Installing RVM** 
+	
+### **Installing RVM** 
+
 	sudo apt install -y software-properties-common
 
 	sudo apt-add-repository -y ppa:rael-gc/rvm
@@ -122,15 +111,15 @@ For security edit /etc*/*elasticsearch/elasticsearch.yml to set network.host
 
 	rvm install 3.2.0
 
-**Create user**
+### **Create user**
 
 	adduser --disabled-login verifiedx
 
-	sudo usermod -a -G rvm verifiedx
+	usermod -a -G rvm verifiedx
 
-	sudo usermod -a -G verifiedx www-data
+	usermod -a -G verifiedx www-data
 
-	su - verifiedx** 
+	su - verifiedx
 
 Setup ssh, paste your public key into .ssh/autorized\_keys
 
@@ -148,7 +137,7 @@ Create application.yml, default path is ~/apps/verifiedx/shared/config/applicati
 
 Do not forget to generate rails secret and put it in the application.yml
 
-**Setup Services and nginx configuration**
+### **Setup Services and nginx configuration**
 
 Create services from templates in dist folder
 
@@ -158,11 +147,11 @@ Create services from templates in dist folder
 
 Authorize user to manage those services by creating sudoer file: /etc/sudoers.d/verifiedx
 
-	%verifiedx ALL=NOPASSWD: /bin/systemctl \* sidekiq
+	%verifiedx ALL=NOPASSWD: /bin/systemctl * sidekiq
 
 	%verifiedx ALL=NOPASSWD: /bin/systemctl kill -s TSTP sidekiq
 
-	%verifiedx ALL=NOPASSWD: /bin/systemctl \* verifiedx
+	%verifiedx ALL=NOPASSWD: /bin/systemctl * verifiedx
 
 Enable services
 
@@ -170,11 +159,25 @@ Enable services
 
 	sudo systemctl enable sidekiq
 
-**Deploy with capistrano**
+Add Nginx configuration from template file in dist folder
+
+    dist/nginx.conf
+
+### **Create Database**
+
+    su - postgres
+    createuser --interactive
+    psql
+    create database verifiedx_production
+
+### **Deploy with capistrano**
+From your local folder
 
 	cap production deploy
 
 	cap production invoke:rake TASK=searchkick:reindex:all
+
+### **Setup Certbot**
 
 Once all these done and app is working correctly, install certbot to install certificate
 
@@ -184,4 +187,14 @@ Once all these done and app is working correctly, install certbot to install cer
 
 	sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
-certbot …
+	certbot
+
+### **Admin Login**
+To access the admin panel for VerifiedX, navigate to the following URL in your web browser:
+
+    https://example.com/account
+
+You will need to enter the following credentials to log in:
+
+    username: admin@verifiedx.org
+    password: verifiedx
