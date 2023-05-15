@@ -17,7 +17,7 @@ For updates, feature suggestions, or complaints, please follow [@jeff@Newsie.soc
 
 To deploy VerifiedX on your own server, please visit the official repository at [https://github.com/Honeytree-Technologies/VerifiedX](https://github.com/Honeytree-Technologies/VerifiedX).
 
-If you would like VerifiedX as a hosted service, or would like our team to install it for you please contact us at [Honeytree Technologies](https://honeytreetech).
+If you would like VerifiedX as a hosted service, or would like our team to install it for you please contact us at [Honeytree Technologies](https://honeytreetech.com).
 
 ### **Pre-requisites** 
 - A machine running **Ubuntu 20.04** or **Debian 11** that you have root access to
