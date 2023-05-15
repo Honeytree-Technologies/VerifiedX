@@ -124,6 +124,12 @@
                    dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                    data-public--main-target="userProfile" data-action="public--main#editProfile">Profile</a>
               </li>
+              <% if defined?(Verifiedx::Analytics) %>
+                <li>
+                  <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+                   dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                </li>
+              <% end %>
               <li>
                 <a href="javascript:void(0);" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600
                    dark:text-gray-200 dark:hover:text-white" data-action="public--main#logout">Sign

@@ -43,7 +43,7 @@
           Mastodon Settings
         </span>
       </li>
-      <li class="mr-2">
+      <li class="mr-2 hidden">
         <span class="group cursor-pointer inline-flex p-4 border-b-2 rounded-t-lg
          border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
               data-action="click->tabs#changeTab" data-tabs-target="tab">
@@ -220,33 +220,35 @@
           </div>
         </div>
       </div>
-      <hr>
-      <h4 class="underline text-gray-800 dark:text-gray-300">Feed Page</h4>
-      <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
-        <div class="w-full xl:w-1/2 space-y">
-          <div class="">
-            <label class="block" for="feed_title"><%= t '.fields.feed_title' %></label>
-            <div class="mt-1.5">
-              <input id="feed_title" type="text" value="<%= Setting.feed_title %>" name="feed_title"
-                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+      <% if defined?(Verifiedx::Analytics) %>
+        <hr>
+        <h4 class="underline text-gray-800 dark:text-gray-300">Feed Page</h4>
+        <div class="flex space-y space-x flex-col xl:flex-row xl:space-y-0">
+          <div class="w-full xl:w-1/2 space-y">
+            <div class="">
+              <label class="block" for="feed_title"><%= t '.fields.feed_title' %></label>
+              <div class="mt-1.5">
+                <input id="feed_title" type="text" value="<%= Setting.feed_title %>" name="feed_title"
+                       class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
                       focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
                        dark:text-darkPrimary-300">
+              </div>
+            </div>
+          </div>
+          <div class="w-full xl:w-1/2 space-y">
+            <div class="">
+              <label class="block" for="feed_text"><%= t '.fields.feed_text' %></label>
+              <div class="mt-1.5">
+                <input id="feed_text" type="text"
+                       value="<%= Setting.feed_text %>" name="feed_text"
+                       class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
+                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
+                       dark:text-darkPrimary-300">
+              </div>
             </div>
           </div>
         </div>
-        <div class="w-full xl:w-1/2 space-y">
-          <div class="">
-            <label class="block" for="feed_text"><%= t '.fields.feed_text' %></label>
-            <div class="mt-1.5">
-              <input id="feed_text" type="text"
-                     value="<%= Setting.feed_text %>" name="feed_text"
-                     class=" block w-full rounded-md shadow-sm font-light text-base md:text-sm focus:ring-primary-500
-                      focus:border-primary-500 border-gray-300 dark:bg-darkPrimary-800 dark:border-darkPrimary-900
-                       dark:text-darkPrimary-300">
-            </div>
-          </div>
-        </div>
-      </div>
+      <% end %>
       <hr>
       <div class="flex space-y space-x flex-col xl:space-y-0">
         <label class="block" for="disclaimer"><%= t '.fields.disclaimer' %></label>
@@ -332,7 +334,7 @@
         </div>
       </div>
     </div>
-    <div data-tabs-target="content" class="w-full space-y p-4 mb-4 bg-white rounded-b-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800"></div>
+    <div data-tabs-target="content" class="hidden w-full space-y p-4 mb-4 bg-white rounded-b-lg shadow sm:p-6 xl:p-8 dark:bg-gray-800"></div>
   </div>
   <div class="buttons flex justify-end">
     <%= submit_tag t('.buttons.update'), class: "button" %>
