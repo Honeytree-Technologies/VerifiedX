@@ -102,7 +102,7 @@
             </video>
           <% elsif json_status['media_attachments'][0]['type'] == 'gifv' %>
             <video class="w-full" autoplay loop muted>
-              <source src="<%= status.json_status['media_attachments'][0]['url'] %>" type="video/mp4">
+              <source src="<%= json_status['media_attachments'][0]['url'] %>" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           <% elsif json_status['media_attachments'][0]['type'] == 'audio' %>

@@ -175,9 +175,7 @@ Add Nginx configuration from template file in dist folder
 ### **Deploy with capistrano**
 From your local folder
 
-	cap production deploy
-
-	cap production invoke:rake TASK=searchkick:reindex:all
+	cap production deploy:initial
 
 ### **Setup Certbot**
 

@@ -50,3 +50,35 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  desc 'Initial deployment'
+  task :initial do
+    on roles(:app) do
+      before 'deploy:migrate', 'deploy:db_create'
+      after 'deploy:migrate', 'deploy:searchkick_reindex_task'
+      invoke 'deploy'
+    end
+  end
+  desc 'Run db:create task before migration'
+  task :db_create do
+    on roles(:app) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'db:create'
+        end
+      end
+    end
+  end
+
+  desc 'Run searchkick:reindex:all task after deploy:migrate'
+  task :searchkick_reindex_task do
+    on roles(:app) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'searchkick:reindex:all'
+        end
+      end
+    end
+  end
+end
